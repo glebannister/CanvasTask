@@ -1,5 +1,6 @@
 using Framework.Application;
 using NUnit.Framework;
+using UITestsProject.Pages;
 
 namespace UITestsProject
 {
@@ -14,6 +15,8 @@ namespace UITestsProject
         public void Test1()
         {
             BrowserManager.NavigateToUrl("https://demo.1crmcloud.com");
+            LoginPage loginPage = new LoginPage();
+            loginPage.IsPageDisplayed();
         }
     }
 }

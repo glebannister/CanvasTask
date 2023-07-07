@@ -12,8 +12,9 @@ namespace Framework.Application
     {
         public int PageLoadTimeOut { get; set; } = 60;
 
-        private IWebDriver _driver;
+        private IWebDriver ?_driver;
         private const string BrowserKey = "Browser";
+        private const string ChromeOptionsKey = "ChromeOptions";
         private static Browser? _browserInstance;
         private static readonly object _syncRoot = new();
 
@@ -24,12 +25,12 @@ namespace Framework.Application
         public IWebDriver GetDriver() 
         {
             if (_driver != null) return _driver;
-            var driverName = JsonUtil.GetValueFromAppettingsFile(BrowserKey);
+            var driverName = JsonUtil.GetValueFromAppettingsFile<string>(BrowserKey);
             switch (EnumUtil.ConvertStringToEnum<DriversEnum>(driverName)) 
             {
                 case DriversEnum.Chrome:
                     new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-                    _driver = new ChromeDriver(ChromeDriverService.CreateDefaultService());
+                    _driver = new ChromeDriver(DefineChromeOptions());
                     ManageDriverDefaultSettings(_driver);
                     break;
                 case DriversEnum.Firefox:
@@ -39,7 +40,12 @@ namespace Framework.Application
                 default: throw new NotImplementedException("Wrong driver name");
             }
             return _driver;
-        } 
+        }
+
+        public void NullDriver() 
+        {
+            _driver = null;
+        }
 
         public static Browser GetInstance() 
         {
@@ -58,6 +64,14 @@ namespace Framework.Application
         {
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(PageLoadTimeOut));
+        }
+
+        private ChromeOptions DefineChromeOptions() 
+        {
+            ChromeOptions options = new ChromeOptions();
+            var chromeOptionsList = JsonUtil.GetValueFromAppettingsFile<IEnumerable<string>>(ChromeOptionsKey);
+            options.AddArguments(chromeOptionsList);
+            return options;
         }
     }
 }

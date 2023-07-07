@@ -29,13 +29,21 @@ namespace Framework.Elements
                 : false;
         }
 
+        public bool IsElementDisplayed()
+        {
+            IsWebElementIsNotNull();
+            return WebElement.Displayed;
+        }
+
         public void Click() 
         {
+            IsWebElementIsNotNull();
             WebElement.Click();
         }
 
         public string GetText() 
         {
+            IsWebElementIsNotNull();
             return WebElement.Text;
         }
 
@@ -62,6 +70,12 @@ namespace Framework.Elements
         private void GetWebElements()
         {
             WebElements = BrowserManager.FindElements(locator);
+        }
+
+        private void IsWebElementIsNotNull() 
+        {
+            if (WebElement == null) 
+                throw new NullReferenceException($"Web element with locator [{locator}] and name [{ElementName}] is null");
         }
     }
 }

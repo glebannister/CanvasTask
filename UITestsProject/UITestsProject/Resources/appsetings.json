@@ -1,3 +1,6 @@
 {
-  "Browser": "Chrome"
+  "Browser": "Chrome",
+  "DefaultInterval": "1.00",
+  "DefaulConditionWaitTime": "3.00",
+  "ChromeOptions": [ "--incognito" ]
 }

@@ -9,6 +9,12 @@ namespace Framework.Application
             Browser.GetInstance().GetDriver().Navigate().GoToUrl(url);
         }
 
+        public static void Quit() 
+        {
+            Browser.GetInstance().GetDriver().Quit();
+            Browser.GetInstance().NullDriver();
+        }
+
         public static IWebElement FindElement(By locator)
         {
            return Browser.GetInstance().GetDriver().FindElement(locator);
