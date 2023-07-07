@@ -1,11 +1,6 @@
 ﻿using Framework.Enums;
 using Framework.Utils;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 using WebDriverManager;
@@ -21,6 +16,10 @@ namespace Framework.Application
         private const string BrowserKey = "Browser";
         private static Browser? _browserInstance;
         private static readonly object _syncRoot = new();
+
+        private Browser() 
+        {
+        }
 
         public IWebDriver GetDriver() 
         {
