@@ -7,20 +7,21 @@ namespace Framework.Page
     public abstract class BaseWebPage
     {
         public string PageName { get; private set; }
-        protected BaseWebUiElement _uniqePageElement;
-        private const string DefaultConditionWaitIntervalKey = "DefaulConditionWaitTime";
+        protected BaseWebUiElement uniqePageElement;
+        protected const string DefaultConditionWaitIntervalKey = "DefaulConditionWaitTime";
 
         public BaseWebPage(BaseWebUiElement uniqePageElement, string pageName) 
         {
-            _uniqePageElement = uniqePageElement;
+            this.uniqePageElement = uniqePageElement;
             PageName = pageName;
         }
 
-        public bool IsPageDisplayed() 
+        public bool IsPageOpened() 
         {
-            var defaulConditionWaitTime = JsonUtil.GetValueFromAppettingsFile<double>(DefaultConditionWaitIntervalKey);
-            //Double.TryParse(defaulConditionWaitTime, out double defaultIntervalDouble);
-            return ExplicitWait.WaitForCondition(() => _uniqePageElement.IsElementDisplayed(), TimeSpan.FromSeconds(defaulConditionWaitTime));
+            var defaulConditionWaitTime = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(DefaultConditionWaitIntervalKey);
+            return ExplicitWait.WaitForCondition(() => 
+                uniqePageElement.IsElementDisplayed(),
+                TimeSpan.FromSeconds(defaulConditionWaitTime));
         }
     }
 }

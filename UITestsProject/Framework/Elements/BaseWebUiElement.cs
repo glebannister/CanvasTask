@@ -1,6 +1,9 @@
 ﻿using Framework.Application;
 using Framework.Enums;
+using Framework.Utils;
+using Framework.Waits;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace Framework.Elements
 {
@@ -13,12 +16,15 @@ namespace Framework.Elements
         public List<IWebElement> WebElements { get; private set; }
 
         protected By locator;
+        protected Actions Actions { get; private set; }
+        private const string KeyForDefaultFindElementTimeout = "DefaulTimeoutForFindingElement";
 
         protected BaseWebUiElement(By locator, string elementName, SearchTypeEnum searchType) 
         {
             this.locator = locator;
             ElementName = elementName;
             InitializeWebElementBySearchType(searchType);
+            Actions = new Actions(Browser.GetInstance().GetDriver());
         }
 
         public bool IsElementExist() 
@@ -35,6 +41,12 @@ namespace Framework.Elements
             return WebElement.Displayed;
         }
 
+        public bool IsElementEnabled()
+        {
+            IsWebElementIsNotNull();
+            return WebElement.Enabled;
+        }
+
         public void Click() 
         {
             IsWebElementIsNotNull();
@@ -45,6 +57,11 @@ namespace Framework.Elements
         {
             IsWebElementIsNotNull();
             return WebElement.Text;
+        }
+
+        public void Focus() 
+        {
+            Actions.MoveToElement(WebElement).Build().Perform();
         }
 
         private void InitializeWebElementBySearchType(SearchTypeEnum searchType)
@@ -64,12 +81,29 @@ namespace Framework.Elements
 
         private void GetWebElement() 
         {
-            WebElement = BrowserManager.FindElement(locator);
+            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(KeyForDefaultFindElementTimeout);
+            ExplicitWait.WaitForCondition(() =>
+            {
+                try
+                {
+                    WebElement = BrowserManager.FindElement(locator);
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }, TimeSpan.FromSeconds(timeOut));
         }
 
         private void GetWebElements()
         {
-            WebElements = BrowserManager.FindElements(locator);
+            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(KeyForDefaultFindElementTimeout);
+            ExplicitWait.WaitForCondition(() => 
+            {
+                WebElements = BrowserManager.FindElements(locator);
+                return WebElements.Any();
+            }, TimeSpan.FromSeconds(timeOut));
         }
 
         private void IsWebElementIsNotNull() 

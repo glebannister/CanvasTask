@@ -2,7 +2,7 @@
 
 namespace Framework.Utils
 {
-    internal static class JsonUtil
+    public static class FrameworkJsonUtil
     {
         private const string ResourcesFolder = "Resources";
         private const string AppSettingsJson = "appsetings.json";

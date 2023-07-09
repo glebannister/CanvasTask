@@ -13,8 +13,7 @@ namespace Framework.Waits
 
         private static T For<T>(Func<T> getMethod, Predicate<T> shouldRetry, TimeSpan retryFor, TimeSpan? retryInterval = null)
         {
-            var defaultRetryIntervalValue = JsonUtil.GetValueFromAppettingsFile<double>(DefaultIntervalKey);
-            //Double.TryParse(defaultRetryIntervalValue, out double defaultIntervalDouble);
+            var defaultRetryIntervalValue = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(DefaultIntervalKey);
             DateTime now = DateTime.Now;
             while (DateTime.Now.Subtract(now).TotalMilliseconds < retryFor.TotalMilliseconds)
             {

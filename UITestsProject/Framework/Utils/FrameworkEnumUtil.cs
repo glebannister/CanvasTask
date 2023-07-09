@@ -1,6 +1,6 @@
 ﻿namespace Framework.Utils
 {
-    internal static class EnumUtil
+    public static class FrameworkEnumUtil
     {
         public static T ConvertStringToEnum<T>(string value) where T : Enum 
         {

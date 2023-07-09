@@ -25,8 +25,8 @@ namespace Framework.Application
         public IWebDriver GetDriver() 
         {
             if (_driver != null) return _driver;
-            var driverName = JsonUtil.GetValueFromAppettingsFile<string>(BrowserKey);
-            switch (EnumUtil.ConvertStringToEnum<DriversEnum>(driverName)) 
+            var driverName = FrameworkJsonUtil.GetValueFromAppettingsFile<string>(BrowserKey);
+            switch (FrameworkEnumUtil.ConvertStringToEnum<DriversEnum>(driverName)) 
             {
                 case DriversEnum.Chrome:
                     new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
@@ -69,7 +69,7 @@ namespace Framework.Application
         private ChromeOptions DefineChromeOptions() 
         {
             ChromeOptions options = new ChromeOptions();
-            var chromeOptionsList = JsonUtil.GetValueFromAppettingsFile<IEnumerable<string>>(ChromeOptionsKey);
+            var chromeOptionsList = FrameworkJsonUtil.GetValueFromAppettingsFile<IEnumerable<string>>(ChromeOptionsKey);
             options.AddArguments(chromeOptionsList);
             return options;
         }

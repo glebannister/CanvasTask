@@ -15,8 +15,8 @@ namespace UITestsProject
         public void Test1()
         {
             BrowserManager.NavigateToUrl("https://demo.1crmcloud.com");
-            LoginPage loginPage = new LoginPage();
-            loginPage.IsPageDisplayed();
+            AuthorizationPage loginPage = new AuthorizationPage();
+            loginPage.IsPageOpened();
         }
     }
 }

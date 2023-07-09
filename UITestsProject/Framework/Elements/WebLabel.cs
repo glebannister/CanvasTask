@@ -5,7 +5,7 @@ namespace Framework.Elements
 {
     public class WebLabel : BaseWebUiElement
     {
-        public WebLabel(By locator, string elementName, SearchTypeEnum searchType) : base(locator, elementName, searchType)
+        public WebLabel(By locator, string elementName, SearchTypeEnum searchType = SearchTypeEnum.Single) : base(locator, elementName, searchType)
         {
         }
     }
