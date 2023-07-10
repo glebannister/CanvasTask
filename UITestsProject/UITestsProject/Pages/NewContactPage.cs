@@ -1,6 +1,8 @@
 ﻿using Framework.Elements;
 using Framework.Page;
+using Framework.Waits;
 using OpenQA.Selenium;
+using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
@@ -19,6 +21,9 @@ namespace UITestsProject.Pages
 
         public string GetFirstLastNameOfNewContact() 
         {
+            ExplicitWait.WaitForCondition(() =>
+            FirstLastNameLabel.GetText() != TestDataConstants.DefaultFirstLastNameWebText,
+            TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
             return FirstLastNameLabel.GetText();
         }
 

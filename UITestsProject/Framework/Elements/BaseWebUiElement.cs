@@ -30,9 +30,7 @@ namespace Framework.Elements
         public bool IsElementExist() 
         {
             if (WebElements == null) GetWebElements();
-            return WebElements.Count > 0 
-                ? true 
-                : false;
+            return WebElements.Any();
         }
 
         public bool IsElementDisplayed()

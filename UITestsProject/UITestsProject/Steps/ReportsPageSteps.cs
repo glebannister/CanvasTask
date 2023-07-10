@@ -9,12 +9,12 @@ namespace UITestsProject.Steps
     public class ReportsPageSteps
     {
         private ScenarioContext _scenarioContext;
-        private ReportsPage _reportsPage;
+        private AllReportsPage _reportsPage;
 
         public ReportsPageSteps(ScenarioContext scenarioContext, IObjectContainer objectContainer)
         {
             _scenarioContext = scenarioContext;
-            _reportsPage = objectContainer.Resolve<ReportsPage>();
+            _reportsPage = objectContainer.Resolve<AllReportsPage>();
         }
 
         [Then("Reports page is opened")]

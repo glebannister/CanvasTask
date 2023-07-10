@@ -9,6 +9,11 @@ namespace Framework.Application
             Browser.GetInstance().GetDriver().Navigate().GoToUrl(url);
         }
 
+        public static void AcceptAlert() 
+        {
+            Browser.GetInstance().GetDriver().SwitchTo().Alert().Accept();
+        }
+
         public static void ExecuteJsScript(string script, IWebElement webElement) 
         {
             ((IJavaScriptExecutor)Browser.GetInstance().GetDriver()).ExecuteScript(script, webElement);
