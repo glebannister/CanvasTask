@@ -82,7 +82,7 @@ namespace Framework.Elements
         private void GetWebElement() 
         {
             var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(KeyForDefaultFindElementTimeout);
-            ExplicitWait.WaitForCondition(() =>
+            var isElementFound = ExplicitWait.WaitForCondition(() =>
             {
                 try
                 {
@@ -94,6 +94,7 @@ namespace Framework.Elements
                     return false;
                 }
             }, TimeSpan.FromSeconds(timeOut));
+            if (!isElementFound) throw new NoSuchElementException($"Web element with locator [{locator}] and name [{ElementName}]  was not found]");
         }
 
         private void GetWebElements()
@@ -106,9 +107,9 @@ namespace Framework.Elements
             }, TimeSpan.FromSeconds(timeOut));
         }
 
-        private void IsWebElementIsNotNull() 
+        private void IsWebElementIsNotNull()
         {
-            if (WebElement == null) 
+            if (WebElement == null)
                 throw new NullReferenceException($"Web element with locator [{locator}] and name [{ElementName}] is null");
         }
     }
