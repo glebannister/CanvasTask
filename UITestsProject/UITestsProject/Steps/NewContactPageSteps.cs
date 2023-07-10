@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITestsProject.Constants;
+using UITestsProject.Extensions;
 using UITestsProject.Models;
 using UITestsProject.Pages;
 
@@ -11,33 +12,34 @@ namespace UITestsProject.Steps
     public class NewContactPageSteps
     {
         private ScenarioContext _scenarioContext;
-        private NewContactPage  _newContactPage;
+        private NewContactPage _createdContactPage;
 
         public NewContactPageSteps(ScenarioContext scenarioContext, IObjectContainer objectContainer) 
         {
             _scenarioContext = scenarioContext;
-            _newContactPage = objectContainer.Resolve<NewContactPage>();
+            _createdContactPage = objectContainer.Resolve<NewContactPage>();
         }
 
-        [When("I create a new contact")]
-        public void CreateNewContact(ContractUserModel contractUserModel) 
+        [Then("Created contact page is opened")]
+        public void CreatedContactPageIsOpened() 
         {
-            _scenarioContext.Add(ScenarioContextConstants.ContactUserModel, contractUserModel);
-            var customersCategoryArray = contractUserModel.CustomersCategory.Split(',');
-            _newContactPage
-                .CreateNewContact(contractUserModel.FirstName, contractUserModel.LastName, contractUserModel.Role.ToString(), customersCategoryArray);
+            Assert.IsTrue(_createdContactPage.IsPageOpened(), $"{_createdContactPage.PageName} is not opened!");
         }
 
-        [When("I save a new contact")]
-        public void SaveNewContact() 
+        [Then("I check that the contact has proper values")]
+        public void CheckThatContactHasProperValues()
         {
-            _newContactPage.SaveNewContact();
-        }
-
-        [Then("New contact page is opened")]
-        public void NewContactPageIsOpened() 
-        {
-            Assert.IsTrue(_newContactPage.IsPageOpened(), $"{_newContactPage.PageName} is not opened!");
+            //TO DO stabilization is needed
+            var expectedContactValues = _scenarioContext.Get<ContractUserModel>(ScenarioContextConstants.ContactUserModel);
+            var firstLastNameActual = _createdContactPage.GetFirstLastNameOfNewContact().RemoveAllSpaces();
+            var businessRoleActual = _createdContactPage.GetBusinessRoleOfNewContact();
+            var categoriesActual = _createdContactPage.GetCategoriesOfNewContact().NormoizeCategoriesValue();
+            Assert.Multiple(() => 
+            {
+                Assert.AreEqual($"{expectedContactValues.FirstName}{expectedContactValues.LastName}", firstLastNameActual, "Actual contact's first and last name don't match the expected ones");
+                Assert.AreEqual(expectedContactValues.Role.ToString(), businessRoleActual, "Actual contact's role doesn't match the expected one");
+                Assert.AreEqual(expectedContactValues.CustomersCategory.RemoveAllSpaces(), categoriesActual, "Actual categories don't match the expected ones");
+            });
         }
     }
 }

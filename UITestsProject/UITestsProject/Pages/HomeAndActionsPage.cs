@@ -1,8 +1,8 @@
 ﻿using Framework.Elements;
 using Framework.Page;
-using Framework.Utils;
 using Framework.Waits;
 using OpenQA.Selenium;
+using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
@@ -22,10 +22,9 @@ namespace UITestsProject.Pages
         public void ClickOnItemInSalesAndMarketingContainer(string itemName) 
         {
             SalesAndMarketingButton.Focus();
-            var defaulConditionWaitTime = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(DefaultConditionWaitIntervalKey);
             ExplicitWait.WaitForCondition(() => 
                 SalesAndMarketingWebContainer.IsElementExist(),
-                TimeSpan.FromSeconds(defaulConditionWaitTime));
+                TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
             SalesAndMarketingWebContainer.ClickElementByHrefContains(itemName);
         }
     }
