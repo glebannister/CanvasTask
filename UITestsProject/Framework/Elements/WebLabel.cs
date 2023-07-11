@@ -1,4 +1,7 @@
-﻿using Framework.Enums;
+﻿using Framework.Constants;
+using Framework.Enums;
+using Framework.Utils;
+using Framework.Waits;
 using OpenQA.Selenium;
 
 namespace Framework.Elements
@@ -7,6 +10,27 @@ namespace Framework.Elements
     {
         public WebLabel(By locator, string elementName, SearchTypeEnum searchType = SearchTypeEnum.Single) : base(locator, elementName, searchType)
         {
+        }
+
+        public List<string> GetTextsFromLabels() 
+        {
+            var listOfTexts = new List<string>();
+            ExplicitWait.WaitForCondition(() =>
+            {
+                try
+                {
+                    listOfTexts = WebElements
+                        .Select(label => label.Text)
+                        .ToList();
+                    return true;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    ReFindWebElements();
+                    return false;
+                }
+            }, TimeSpan.FromSeconds(FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.DefaultConditionWaitIntervalKey)));
+            return listOfTexts;
         }
     }
 }

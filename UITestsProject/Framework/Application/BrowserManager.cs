@@ -14,11 +14,6 @@ namespace Framework.Application
             Browser.GetInstance().GetDriver().SwitchTo().Alert().Accept();
         }
 
-        public static void ExecuteJsScript(string script, IWebElement webElement) 
-        {
-            ((IJavaScriptExecutor)Browser.GetInstance().GetDriver()).ExecuteScript(script, webElement);
-        }
-
         public static void Quit() 
         {
             Browser.GetInstance().GetDriver().Quit();

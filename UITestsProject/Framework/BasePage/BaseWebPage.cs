@@ -1,4 +1,5 @@
-﻿using Framework.Elements;
+﻿using Framework.Constants;
+using Framework.Elements;
 using Framework.Utils;
 using Framework.Waits;
 
@@ -8,7 +9,6 @@ namespace Framework.Page
     {
         public string PageName { get; private set; }
         protected BaseWebUiElement uniqePageElement;
-        protected const string DefaultConditionWaitIntervalKey = "DefaulConditionWaitTime";
 
         public BaseWebPage(BaseWebUiElement uniqePageElement, string pageName) 
         {
@@ -18,7 +18,7 @@ namespace Framework.Page
 
         public bool IsPageOpened() 
         {
-            var defaulConditionWaitTime = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(DefaultConditionWaitIntervalKey);
+            var defaulConditionWaitTime = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.DefaultConditionWaitIntervalKey);
             return ExplicitWait.WaitForCondition(() => 
                 uniqePageElement.IsElementDisplayed(),
                 TimeSpan.FromSeconds(defaulConditionWaitTime));

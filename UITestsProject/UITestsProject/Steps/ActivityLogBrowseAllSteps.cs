@@ -1,11 +1,8 @@
 ﻿using BoDi;
+using Framework.Application;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using UITestsProject.Constants;
 using UITestsProject.Pages;
 
 namespace UITestsProject.Steps
@@ -25,13 +22,32 @@ namespace UITestsProject.Steps
         [When(@"I delete first '(.*)' items in the table")]
         public void DeleteFirstItemsInTheTable(int amountOfItemsToDetele) 
         {
-            _activityLogBrowseAllPage.DeleteFirstItemsFormTheTable();
+            _scenarioContext.Add(ScenarioContextConstants.ActivitiesToDeleteNames, _activityLogBrowseAllPage.GetItemsToDeleteNames(amountOfItemsToDetele));
+            _activityLogBrowseAllPage.DeleteFirstItemsFormTheTable(amountOfItemsToDetele);
         }
 
         [Then("Activity log browser all page is opened")]
         public void IsActivityLogBrowserAllPageOpened() 
         {
             Assert.IsTrue(_activityLogBrowseAllPage.IsPageOpened(), $"{_activityLogBrowseAllPage.PageName} is not opened");
+        }
+
+        [Then("The items has been deleted")]
+        public void ItemsHasBeenDeleted() 
+        {
+            Assert.Multiple(() =>
+            {
+                CheckIfActivitiesHasBeenDeleted();
+            });
+        }
+
+        private void CheckIfActivitiesHasBeenDeleted() 
+        {
+            var listOfDeletedItems = _scenarioContext.Get<List<string>>(ScenarioContextConstants.ActivitiesToDeleteNames);
+            listOfDeletedItems.ForEach(itemName =>
+            {
+                Assert.IsFalse(_activityLogBrowseAllPage.IsSpesificActivityExists(itemName), $"Activity {itemName} is still exists!");
+            });
         }
     }
 }

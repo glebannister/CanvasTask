@@ -1,4 +1,5 @@
 ﻿using Framework.Application;
+using Framework.Constants;
 using Framework.Enums;
 using Framework.Utils;
 using Framework.Waits;
@@ -17,7 +18,6 @@ namespace Framework.Elements
 
         protected By locator;
         protected Actions Actions { get; private set; }
-        private const string KeyForDefaultFindElementTimeout = "DefaulTimeoutForFindingElement";
 
         protected BaseWebUiElement(By locator, string elementName, SearchTypeEnum searchType) 
         {
@@ -77,10 +77,15 @@ namespace Framework.Elements
             }
         }
 
+        public void ReFindWebElements() 
+        {
+            WebElements = BrowserManager.FindElements(locator);
+        }
+
         private void GetWebElement() 
         {
-            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(KeyForDefaultFindElementTimeout);
-            var isElementFound = ExplicitWait.WaitForCondition(() =>
+            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.KeyForDefaultFindElementTimeout);
+            ExplicitWait.WaitForCondition(() =>
             {
                 try
                 {
@@ -92,12 +97,11 @@ namespace Framework.Elements
                     return false;
                 }
             }, TimeSpan.FromSeconds(timeOut));
-            if (!isElementFound) throw new NoSuchElementException($"Web element with locator [{locator}] and name [{ElementName}]  was not found]");
         }
 
         private void GetWebElements()
         {
-            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(KeyForDefaultFindElementTimeout);
+            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.KeyForDefaultFindElementTimeout);
             ExplicitWait.WaitForCondition(() => 
             {
                 WebElements = BrowserManager.FindElements(locator);
