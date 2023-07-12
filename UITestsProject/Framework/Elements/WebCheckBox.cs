@@ -1,5 +1,6 @@
 ﻿using Framework.Constants;
 using Framework.Enums;
+using Framework.Logging;
 using Framework.Utils;
 using Framework.Waits;
 using OpenQA.Selenium;
@@ -15,6 +16,7 @@ namespace Framework.Elements
 
         public void SetCheckBoxesValues(int amountOfItems, bool value) 
         {
+            FrameworkLogger.Info($"Set check boxes values to check box by Locator[{locator}] and Name{ElementName}");
             WebElements
                 .Take(amountOfItems)
                 .ToList()

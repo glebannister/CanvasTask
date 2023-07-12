@@ -1,5 +1,6 @@
 ﻿using Framework.Constants;
 using Framework.Elements;
+using Framework.Logging;
 using Framework.Utils;
 using Framework.Waits;
 
@@ -18,6 +19,7 @@ namespace Framework.Page
 
         public bool IsPageOpened() 
         {
+            FrameworkLogger.Info($"Validate if page {PageName} is opened");
             var defaulConditionWaitTime = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.DefaultConditionWaitIntervalKey);
             return ExplicitWait.WaitForCondition(() => 
                 uniqePageElement.IsElementDisplayed(),

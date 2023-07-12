@@ -13,15 +13,5 @@ namespace Framework.Elements
         {
             _selectElement = new SelectElement(WebElement);
         }
-
-        public void SelectItemByText(string text) 
-        {
-            _selectElement.SelectByText(text);
-        }
-
-        public void SelectItemsByText(string[] texts)
-        {
-            texts.ToList().ForEach(text => _selectElement.SelectByText(text));
-        }
     }
 }

@@ -29,7 +29,6 @@ namespace UITestsProject.Steps
         [Then("I check that the contact has proper values")]
         public void CheckThatContactHasProperValues()
         {
-            //TO DO stabilization is needed
             var expectedContactValues = _scenarioContext.Get<ContractUserModel>(ScenarioContextConstants.ContactUserModel);
             var firstLastNameActual = _createdContactPage.GetFirstLastNameOfNewContact().RemoveAllSpaces();
             var businessRoleActual = _createdContactPage.GetBusinessRoleOfNewContact();

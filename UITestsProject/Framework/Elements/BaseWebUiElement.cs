@@ -1,6 +1,7 @@
 ﻿using Framework.Application;
 using Framework.Constants;
 using Framework.Enums;
+using Framework.Logging;
 using Framework.Utils;
 using Framework.Waits;
 using OpenQA.Selenium;
@@ -29,36 +30,42 @@ namespace Framework.Elements
 
         public bool IsElementExist() 
         {
+            FrameworkLogger.Info($"Checking if web element by Locator[{locator}] and Name{ElementName} is Exist");
             if (WebElements == null) GetWebElements();
             return WebElements.Any();
         }
 
         public bool IsElementDisplayed()
         {
+            FrameworkLogger.Info($"Checking if web element by Locator[{locator}] and Name{ElementName} is Displayed");
             IsWebElementIsNotNull();
             return WebElement.Displayed;
         }
 
         public bool IsElementEnabled()
         {
+            FrameworkLogger.Info($"Checking if web element by Locator[{locator}] and Name{ElementName} is Enabled");
             IsWebElementIsNotNull();
             return WebElement.Enabled;
         }
 
         public void Click() 
         {
+            FrameworkLogger.Info($"Clicking on web element by Locator[{locator}] and Name{ElementName}");
             IsWebElementIsNotNull();
             WebElement.Click();
         }
 
         public string GetText() 
         {
+            FrameworkLogger.Info($"Getting text from web element by Locator[{locator}] and Name{ElementName}");
             IsWebElementIsNotNull();
             return WebElement.Text;
         }
 
         public void Focus() 
         {
+            FrameworkLogger.Info($"Focusing on web element by Locator[{locator}] and Name{ElementName}");
             Actions.MoveToElement(WebElement).Build().Perform();
         }
 
@@ -77,13 +84,21 @@ namespace Framework.Elements
             }
         }
 
+        public void ReFindWebElement()
+        {
+            FrameworkLogger.Info($"Refinding web element by Locator[{locator}] and Name{ElementName}");
+            WebElement = BrowserManager.FindElement(locator);
+        }
+
         public void ReFindWebElements() 
         {
+            FrameworkLogger.Info($"Refinding web elements by Locator[{locator}] and Name{ElementName}");
             WebElements = BrowserManager.FindElements(locator);
         }
 
         private void GetWebElement() 
         {
+            FrameworkLogger.Info($"Getting web element by Locator[{locator}] and Name{ElementName}");
             var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.KeyForDefaultFindElementTimeout);
             ExplicitWait.WaitForCondition(() =>
             {
@@ -101,6 +116,7 @@ namespace Framework.Elements
 
         private void GetWebElements()
         {
+            FrameworkLogger.Info($"Getting web elements by Locator[{locator}] and Name{ElementName}");
             var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.KeyForDefaultFindElementTimeout);
             ExplicitWait.WaitForCondition(() => 
             {

@@ -1,5 +1,6 @@
 ﻿using Framework.Constants;
 using Framework.Enums;
+using Framework.Logging;
 using Framework.Utils;
 using Framework.Waits;
 using OpenQA.Selenium;
@@ -14,6 +15,7 @@ namespace Framework.Elements
 
         public List<string> GetTextsFromLabels() 
         {
+            FrameworkLogger.Info($"Getting texts from label by Locator[{locator}] and Name{ElementName}");
             var listOfTexts = new List<string>();
             ExplicitWait.WaitForCondition(() =>
             {

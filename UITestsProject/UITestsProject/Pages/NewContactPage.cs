@@ -21,10 +21,18 @@ namespace UITestsProject.Pages
 
         public string GetFirstLastNameOfNewContact() 
         {
-            ExplicitWait.WaitForCondition(() =>
-            FirstLastNameLabel.GetText() != TestDataConstants.DefaultFirstLastNameWebText,
-            TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
-            return FirstLastNameLabel.GetText();
+            var firstLastNameOfContact = string.Empty;
+            ExplicitWait.WaitForCondition(() => 
+            {
+                firstLastNameOfContact = FirstLastNameLabel.GetText();
+                if (firstLastNameOfContact == TestDataConstants.DefaultFirstLastNameWebText) 
+                {
+                    FirstLastNameLabel.ReFindWebElement();
+                }
+                firstLastNameOfContact = FirstLastNameLabel.GetText();
+                return firstLastNameOfContact != TestDataConstants.DefaultFirstLastNameWebText;
+            }, TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+            return firstLastNameOfContact;
         }
 
         public string GetBusinessRoleOfNewContact() 

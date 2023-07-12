@@ -5,6 +5,7 @@ using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 using WebDriverManager;
 using OpenQA.Selenium.Chrome;
+using Framework.Logging;
 
 namespace Framework.Application
 {
@@ -24,6 +25,7 @@ namespace Framework.Application
 
         public IWebDriver GetDriver() 
         {
+            FrameworkLogger.Info("Getting instance of IWebDriver...");
             if (_driver != null) return _driver;
             var driverName = FrameworkJsonUtil.GetValueFromAppettingsFile<string>(BrowserKey);
             switch (FrameworkEnumUtil.ConvertStringToEnum<DriversEnum>(driverName)) 
@@ -62,12 +64,14 @@ namespace Framework.Application
 
         private void ManageDriverDefaultSettings(IWebDriver Driver)
         {
+            FrameworkLogger.Info("Manage default IwebDriver settings");
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(PageLoadTimeOut));
         }
 
         private ChromeOptions DefineChromeOptions() 
         {
+            FrameworkLogger.Info("Define Chrome oprions");
             ChromeOptions options = new ChromeOptions();
             var chromeOptionsList = FrameworkJsonUtil.GetValueFromAppettingsFile<IEnumerable<string>>(ChromeOptionsKey);
             options.AddArguments(chromeOptionsList);
