@@ -21,7 +21,9 @@ namespace UITestsProject.Pages
 
         public bool IsReportReturnedValues() 
         {
-            return ExplicitWait.WaitForCondition(() => RunReportResultTable.IsElementExist(), TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+            return ExplicitWait.WaitForCondition(() =>
+                RunReportResultTable.IsElementExist(),
+                TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
         }
     }
 }

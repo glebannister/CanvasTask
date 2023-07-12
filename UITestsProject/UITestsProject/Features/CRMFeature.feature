@@ -1,10 +1,9 @@
 ﻿Feature: CRMFeature
 
 Background: 
-	Given I navigate to CRM login page
-		And I pass the authorization
-		And Home and Actions page is opened
+	Given Home and Actions page is opened
 
+@CrmUiTest
 @UIAuthorization
 @QuiteWebDriver
 Scenario: CreateContact
@@ -14,15 +13,16 @@ Scenario: CreateContact
 	Then New contact page is opened
 	When I create a new contact
 		| FirstName | LastName  | Role | CustomersCategory    |
-		| Napoleon11  | Bonaparte | CEO  | Customers, Suppliers |
+		| Napoleon  | Bonaparte | CEO  | Customers, Suppliers |
 		And I save a new contact
 	Then Created contact page is opened
 	  And I check that the contact has proper values
 
-@UIAuthorization
+@CrmUiTest
+@ApiAuthorization
 @QuiteWebDriver
 Scenario: RunReport
-	#When I go to 'ReportsSettings' and 'Reports' page
+	When I go to 'ReportsSettings' and 'Reports' page
 	Then Reports page is opened
 		And I find 'Project Profitability' report
 	When I go to report 'Project Profitability' page
@@ -30,7 +30,8 @@ Scenario: RunReport
 	When I run report
 	Then Report has returned values
 
-@UIAuthorization
+@CrmUiTest
+@ApiAuthorization
 @QuiteWebDriver
 Scenario: RemoveEventsFromActivityLog
 	When I go to 'ReportsSettings' and 'ActivityLog' page

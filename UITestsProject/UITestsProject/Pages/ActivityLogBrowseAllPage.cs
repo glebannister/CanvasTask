@@ -2,7 +2,9 @@
 using Framework.Elements;
 using Framework.Enums;
 using Framework.Page;
+using Framework.Waits;
 using OpenQA.Selenium;
+using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
@@ -35,9 +37,11 @@ namespace UITestsProject.Pages
             BrowserManager.AcceptAlert();
         }
 
-        public bool IsSpesificActivityExists(string activityName) 
+        public bool IsSpesificActivityNotExist(string activityName) 
         {
-            return SpesificActivityLabel(activityName).IsElementExist();
+            return ExplicitWait.WaitForCondition(() =>
+                !SpesificActivityLabel(activityName).IsElementExist(),
+                TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
         }
     }
 }

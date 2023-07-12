@@ -1,5 +1,4 @@
 ﻿using BoDi;
-using Framework.Application;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using UITestsProject.Constants;
@@ -46,7 +45,7 @@ namespace UITestsProject.Steps
             var listOfDeletedItems = _scenarioContext.Get<List<string>>(ScenarioContextConstants.ActivitiesToDeleteNames);
             listOfDeletedItems.ForEach(itemName =>
             {
-                Assert.IsFalse(_activityLogBrowseAllPage.IsSpesificActivityExists(itemName), $"Activity {itemName} is still exists!");
+                Assert.IsTrue(_activityLogBrowseAllPage.IsSpesificActivityNotExist(itemName), $"Activity {itemName} is still exists!");
             });
         }
     }

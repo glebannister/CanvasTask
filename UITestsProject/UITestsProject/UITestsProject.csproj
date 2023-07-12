@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Features\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,6 @@
-﻿using BoDi;
-using Framework.Application;
+﻿using Framework.Application;
 using Framework.Utils;
 using TechTalk.SpecFlow;
-using UITestsProject.Pages;
 
 namespace UITestsProject.Steps
 {
