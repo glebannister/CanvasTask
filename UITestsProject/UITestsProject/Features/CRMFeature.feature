@@ -5,7 +5,7 @@ Background:
 
 @CrmUiTest
 @UIAuthorization
-@QuiteWebDriver
+@QuitWebDriver
 Scenario: CreateContact
 	When I go to 'SalesMarketing' and 'Contacts' page
 	Then Contacts page is opened
@@ -20,7 +20,7 @@ Scenario: CreateContact
 
 @CrmUiTest
 @ApiAuthorization
-@QuiteWebDriver
+@QuitWebDriver
 Scenario: RunReport
 	When I go to 'ReportsSettings' and 'Reports' page
 	Then Reports page is opened
@@ -31,8 +31,8 @@ Scenario: RunReport
 	Then Report has returned values
 
 @CrmUiTest
-@ApiAuthorization
-@QuiteWebDriver
+@UIAuthorization
+@QuitWebDriver
 Scenario: RemoveEventsFromActivityLog
 	When I go to 'ReportsSettings' and 'ActivityLog' page
 	Then Activity log browser all page is opened

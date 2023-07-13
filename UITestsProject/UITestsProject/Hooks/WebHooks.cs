@@ -7,7 +7,7 @@ namespace UITestsProject.Hooks
     [Binding]
     public class WebHooks
     {
-        private const string QuiteWebDriverTag = "QuiteWebDriver";
+        private const string QuiteWebDriverTag = "QuitWebDriver";
         private const string UrlKey = "CrmUrl";
         private const string CrmUiTestTag = "CrmUiTest";
         private ScenarioContext _scenarioContext;

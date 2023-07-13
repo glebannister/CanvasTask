@@ -11,6 +11,15 @@ namespace Framework.Waits
             return For(getMethod, (bool g) => !g, retryFor, retryInterval);
         }
 
+        /// <summary>
+        /// The method is recommended to use only in specific situations
+        /// </summary>
+        /// <returns></returns>
+        public static void SleepWait(double timeout) 
+        {
+            Thread.Sleep((int)timeout * 1000);
+        }
+
         private static T For<T>(Func<T> getMethod, Predicate<T> shouldRetry, TimeSpan retryFor, TimeSpan? retryInterval = null)
         {
             var defaultRetryIntervalValue = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(DefaultIntervalKey);
