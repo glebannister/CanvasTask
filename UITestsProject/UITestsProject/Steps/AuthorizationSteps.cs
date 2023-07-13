@@ -7,7 +7,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class AuthorizationSteps
+    internal class AuthorizationSteps
     {
         private const string UserNameKey = "User";
         private const string PasswordKey = "Password";

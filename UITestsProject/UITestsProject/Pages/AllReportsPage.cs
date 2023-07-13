@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace UITestsProject.Pages
 {
-    public class AllReportsPage : BaseWebPage
+    internal class AllReportsPage : BaseWebPage
     {
         private WebTextField FilterReportsTextField => new WebTextField(By.Id("filter_text"), "Filter text field");
         private WebLabel NameTebleLabel => new WebLabel(By.XPath("//div[@class='listColHeadInner']//div[text()='Name']"), "Name table column");

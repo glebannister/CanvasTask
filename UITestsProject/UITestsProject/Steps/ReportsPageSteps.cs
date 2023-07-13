@@ -6,7 +6,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class ReportsPageSteps
+    internal class ReportsPageSteps
     {
         private ScenarioContext _scenarioContext;
         private AllReportsPage _reportsPage;

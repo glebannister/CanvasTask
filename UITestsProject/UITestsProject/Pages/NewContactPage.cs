@@ -6,7 +6,7 @@ using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
-    public class NewContactPage : BaseWebPage
+    internal class NewContactPage : BaseWebPage
     {
         private WebLabel FirstLastNameLabel => new WebLabel(By.Id("_form_header"), "FirstLast name label");
         private WebLabel BusinessRoleLabel => new WebLabel(

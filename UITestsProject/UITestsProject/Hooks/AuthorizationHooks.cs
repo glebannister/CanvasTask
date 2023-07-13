@@ -7,7 +7,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Hooks
 {
     [Binding]
-    public class AuthorizationHooks
+    internal class AuthorizationHooks
     {
         private const string UrlKey = "CrmUrl";
         private const string UIAuthorizationTag = "UIAuthorization";

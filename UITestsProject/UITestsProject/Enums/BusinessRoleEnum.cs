@@ -1,6 +1,6 @@
 ﻿namespace UITestsProject.Enums
 {
-    public enum BusinessRoleEnum
+    internal enum BusinessRoleEnum
     {
         CEO,
         MISS,

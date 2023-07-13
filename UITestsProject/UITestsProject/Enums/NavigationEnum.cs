@@ -1,6 +1,6 @@
 ﻿namespace UITestsProject.Enums
 {
-    public enum NavigationEnum
+    internal enum NavigationEnum
     {
         SalesMarketing,
         ReportsSettings,

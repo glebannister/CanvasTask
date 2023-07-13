@@ -2,7 +2,7 @@
 
 namespace UITestsProject.Models
 {
-    public class ContractUserModel
+    internal class ContractUserModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -7,7 +7,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class ActivityLogBrowseAllSteps
+    internal class ActivityLogBrowseAllSteps
     {
         private ScenarioContext _scenarioContext;
         private ActivityLogBrowseAllPage _activityLogBrowseAllPage;

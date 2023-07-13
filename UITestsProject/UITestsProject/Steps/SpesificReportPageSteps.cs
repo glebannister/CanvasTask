@@ -6,7 +6,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class SpesificReportPageSteps
+    internal class SpesificReportPageSteps
     {
         private SpesificReportPage _spesificReportPage;
 

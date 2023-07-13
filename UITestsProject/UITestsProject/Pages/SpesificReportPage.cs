@@ -6,7 +6,7 @@ using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
-    public class SpesificReportPage : BaseWebPage
+    internal class SpesificReportPage : BaseWebPage
     {
         private WebButton RunReportWebButton => new WebButton(By.XPath("//span[text()='Run Report']"), "Run report web button");
         private WebTable RunReportResultTable => new WebTable(By.XPath("//tr[@class='listViewRow oddListRowS1']"), "Run report result table");

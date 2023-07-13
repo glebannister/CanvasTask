@@ -84,12 +84,6 @@ namespace Framework.Elements
             }
         }
 
-        public void ReFindWebElement()
-        {
-            FrameworkLogger.Info($"Refinding web element by Locator[{locator}] and Name{ElementName}");
-            WebElement = BrowserManager.FindElement(locator);
-        }
-
         public void ReFindWebElements() 
         {
             FrameworkLogger.Info($"Refinding web elements by Locator[{locator}] and Name{ElementName}");

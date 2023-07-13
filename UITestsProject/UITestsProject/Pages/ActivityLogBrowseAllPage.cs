@@ -8,7 +8,7 @@ using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
-    public class ActivityLogBrowseAllPage : BaseWebPage
+    internal class ActivityLogBrowseAllPage : BaseWebPage
     {
         private WebButton ActionsButton => new WebButton(By.XPath("//div[@class='inline-elt']//span"), "Actions button");
         private WebButton DeleteButton => new WebButton(By.XPath("//div[text()='Delete']"), "Delete button");

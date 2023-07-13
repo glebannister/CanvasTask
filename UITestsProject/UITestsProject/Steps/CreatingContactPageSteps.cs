@@ -8,7 +8,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class CreatingContactPageSteps
+    internal class CreatingContactPageSteps
     {
         private ScenarioContext _scenarioContext;
         private CreatingContactPage  _newContactPage;

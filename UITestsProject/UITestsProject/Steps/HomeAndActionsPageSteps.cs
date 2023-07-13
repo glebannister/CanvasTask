@@ -6,7 +6,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class HomeAndActionsPageSteps
+    internal class HomeAndActionsPageSteps
     {
         private HomeAndActionsPage _homeAndActionsPage;
 

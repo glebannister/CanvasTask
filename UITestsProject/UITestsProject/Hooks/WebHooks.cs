@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 namespace UITestsProject.Hooks
 {
     [Binding]
-    public class WebHooks
+    internal class WebHooks
     {
         private const string QuiteWebDriverTag = "QuitWebDriver";
         private const string UrlKey = "CrmUrl";

@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class BrowserSteps
+    internal class BrowserSteps
     {
         private const string UrlKey = "CrmUrl";
 

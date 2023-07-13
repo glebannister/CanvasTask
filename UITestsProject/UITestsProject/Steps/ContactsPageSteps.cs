@@ -11,7 +11,7 @@ using UITestsProject.Pages;
 namespace UITestsProject.Steps
 {
     [Binding]
-    public class ContactsPageSteps
+    internal class ContactsPageSteps
     {
         private ContactsPage _contactsPage;
 

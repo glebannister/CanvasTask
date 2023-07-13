@@ -7,7 +7,7 @@ using UITestsProject.Extensions;
 
 namespace UITestsProject.Pages
 {
-    public class HomeAndActionsPage : BaseWebPage
+    internal class HomeAndActionsPage : BaseWebPage
     {
         private WebButton SalesAndMarketingButton => new WebButton(By.XPath("//a[contains(@class, 'mouseonly') and contains(@class, 'menu-tab') and contains(@class, 'sales-marketing')]"), "Sales&Marketing button");
         private WebButton ReportsAndSettingsButton => new WebButton(By.XPath("//a[contains(@class, 'mouseonly') and contains(@class, 'menu-tab') and contains(@class, 'reports-settings')]"), "Report$Settings button");
