@@ -6,12 +6,15 @@ using WebDriverManager.Helpers;
 using WebDriverManager;
 using OpenQA.Selenium.Chrome;
 using Framework.Logging;
+using System.ComponentModel;
+using Framework.Waits;
 
 namespace Framework.Application
 {
     public class Browser
     {
         public int PageLoadTimeOut { get; set; } = 60;
+        public ExplicitWait ExplicitWait { get; private set; }
 
         private IWebDriver ?_driver;
         private const string BrowserKey = "Browser";
@@ -31,16 +34,20 @@ namespace Framework.Application
             switch (FrameworkEnumUtil.ConvertStringToEnum<DriversEnum>(driverName)) 
             {
                 case DriversEnum.Chrome:
-                    new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-                    _driver = new ChromeDriver(DefineChromeOptions());
+                    ChromeDriverService chromeDriverService = ChromeDriverService.CreateDefaultService();
+                    //chromeDriverService.SuppressInitialDiagnosticInformation = true;
+                    //chromeDriverService.EnableVerboseLogging = false;
+                    //new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                    _driver = new ChromeDriver(chromeDriverService, DefineChromeOptions());
                     ManageDriverDefaultSettings(_driver);
                     break;
                 case DriversEnum.Firefox:
                     throw new NotImplementedException($"Driver for {DriversEnum.Firefox} hasn't any implementation yet");
                 case DriversEnum.Edge:
                     throw new NotImplementedException($"Driver for {DriversEnum.Edge} hasn't any implementation yet");
-                default: throw new NotImplementedException("Wrong driver name");
+                default: throw new InvalidEnumArgumentException("Wrong driver name");
             }
+            ExplicitWait = new ExplicitWait(_driver);
             return _driver;
         }
 
@@ -75,6 +82,7 @@ namespace Framework.Application
             ChromeOptions options = new ChromeOptions();
             var chromeOptionsList = FrameworkJsonUtil.GetValueFromAppettingsFile<IEnumerable<string>>(ChromeOptionsKey);
             options.AddArguments(chromeOptionsList);
+            chromeOptionsList.ToList().ForEach(option => FrameworkLogger.Info($"{option} has been added"));
             return options;
         }
     }

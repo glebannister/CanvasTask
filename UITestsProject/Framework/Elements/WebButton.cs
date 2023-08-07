@@ -5,8 +5,8 @@ namespace Framework.Elements
 {
     public class WebButton : BaseWebUiElement
     {
-        public WebButton(By locator, string elementName, SearchTypeEnum searchType = SearchTypeEnum.Single) 
-            : base(locator, elementName, searchType)
+        public WebButton(By locator, string elementName, ElementState elementState = ElementState.Displayed) 
+            : base(locator, elementName, elementState)
         {
         }
     }

@@ -1,4 +1,6 @@
-﻿using Framework.Elements;
+﻿using Framework.Application;
+using Framework.Constants;
+using Framework.Elements;
 using Framework.Page;
 using Framework.Waits;
 using OpenQA.Selenium;
@@ -21,9 +23,10 @@ namespace UITestsProject.Pages
 
         public bool IsReportReturnedValues() 
         {
-            return ExplicitWait.WaitForCondition(() =>
-                RunReportResultTable.IsElementExist(),
-                TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+            return BrowserManager
+                .ExplicitWaits()
+                .WaitForCondition(() =>
+                    RunReportResultTable.IsElementExists(), TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
         }
     }
 }

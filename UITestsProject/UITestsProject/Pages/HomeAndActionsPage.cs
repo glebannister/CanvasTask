@@ -1,8 +1,9 @@
-﻿using Framework.Elements;
+﻿using Framework.Application;
+using Framework.Constants;
+using Framework.Elements;
+using Framework.Enums;
 using Framework.Page;
-using Framework.Waits;
 using OpenQA.Selenium;
-using UITestsProject.Constants;
 using UITestsProject.Extensions;
 
 namespace UITestsProject.Pages
@@ -11,7 +12,7 @@ namespace UITestsProject.Pages
     {
         private WebButton SalesAndMarketingButton => new WebButton(By.XPath("//a[contains(@class, 'mouseonly') and contains(@class, 'menu-tab') and contains(@class, 'sales-marketing')]"), "Sales&Marketing button");
         private WebButton ReportsAndSettingsButton => new WebButton(By.XPath("//a[contains(@class, 'mouseonly') and contains(@class, 'menu-tab') and contains(@class, 'reports-settings')]"), "Report$Settings button");
-        private WebContainer NavigationWebContainer = new WebContainer(By.XPath("//div[@class='tab-nav-sub']//a[@class='menu-tab-sub-list']"), "Navigation container");
+        private WebContainer NavigationWebContainer = new WebContainer(By.XPath("//div[@class='tab-nav-sub']//a[@class='menu-tab-sub-list']"), "Navigation container", ElementState.ExistsInAnyState);
 
 
         public HomeAndActionsPage()
@@ -34,9 +35,9 @@ namespace UITestsProject.Pages
 
         private void ClickOnSpesificItem(string itemName) 
         {
-            ExplicitWait.WaitForCondition(() =>
-                NavigationWebContainer.IsElementExist(),
-                TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+            BrowserManager
+                .ExplicitWaits()
+                .WaitForCondition(() => NavigationWebContainer.IsElementExists(), TimeSpan.FromSeconds(BaseConfigurations.DefaultIntervalTimeout));
             NavigationWebContainer.ClickElementByHrefContains(itemName.RemoveAllSpaces());
         }
     }

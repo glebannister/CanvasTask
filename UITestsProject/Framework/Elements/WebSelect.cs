@@ -6,12 +6,9 @@ namespace Framework.Elements
 {
     public class WebSelect : BaseWebUiElement
     {
-        private SelectElement _selectElement;
-
-        public WebSelect(By locator, string elementName, SearchTypeEnum searchType = SearchTypeEnum.Single) 
-            : base(locator, elementName, searchType)
+        public WebSelect(By locator, string elementName, ElementState elementState = ElementState.Displayed) 
+            : base(locator, elementName, elementState)
         {
-            _selectElement = new SelectElement(WebElement);
         }
     }
 }

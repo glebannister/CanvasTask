@@ -1,8 +1,8 @@
-﻿using Framework.Elements;
+﻿using Framework.Application;
+using Framework.Constants;
+using Framework.Elements;
 using Framework.Page;
-using Framework.Waits;
 using OpenQA.Selenium;
-using UITestsProject.Constants;
 
 namespace UITestsProject.Pages
 {
@@ -21,10 +21,14 @@ namespace UITestsProject.Pages
 
         public string GetFirstLastNameOfNewContact() 
         {
-            ExplicitWait.SleepWait(Timeouts.DefaulConditionWaitTime);
-            ExplicitWait.WaitForCondition(() => 
-                FirstLastNameLabel.IsElementDisplayed() && FirstLastNameLabel.IsElementEnabled(),
-                TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+            BrowserManager
+                .ExplicitWaits()
+                .SleepWait(BaseConfigurations.DefaultIntervalTimeout);
+            BrowserManager
+                .ExplicitWaits()
+                .WaitForCondition(() => 
+                    FirstLastNameLabel.IsElementDisplayed() && FirstLastNameLabel.IsElementEnabled(),
+                    TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
             return FirstLastNameLabel.GetText();
         }
 

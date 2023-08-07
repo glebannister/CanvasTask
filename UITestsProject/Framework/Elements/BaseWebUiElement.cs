@@ -2,10 +2,9 @@
 using Framework.Constants;
 using Framework.Enums;
 using Framework.Logging;
-using Framework.Utils;
-using Framework.Waits;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using System.Collections.ObjectModel;
 
 namespace Framework.Elements
 {
@@ -13,116 +12,130 @@ namespace Framework.Elements
     {
         public string ElementName { get; set; }
 
-        public IWebElement WebElement { get; private set; }
+        protected ElementState State { get; set; }
 
-        public List<IWebElement> WebElements { get; private set; }
+        protected By Locator { get; set; }
 
-        protected By locator;
-        protected Actions Actions { get; private set; }
+        public Actions Actions { get; private set; }
 
-        protected BaseWebUiElement(By locator, string elementName, SearchTypeEnum searchType) 
+        protected BaseWebUiElement(By Locator, string elementName, ElementState state) 
         {
-            this.locator = locator;
+            this.Locator = Locator;
             ElementName = elementName;
-            InitializeWebElementBySearchType(searchType);
+            State = state;
             Actions = new Actions(Browser.GetInstance().GetDriver());
         }
 
-        public bool IsElementExist() 
+        public bool IsElementExists()
         {
-            FrameworkLogger.Info($"Checking if web element by Locator[{locator}] and Name{ElementName} is Exist");
-            if (WebElements == null) GetWebElements();
-            return WebElements.Any();
+            FrameworkLogger.Info($"Checking if web element by Locator[{Locator}] and Name {ElementName} is Exists");
+            try 
+            {
+                WaitForElements(Locator, ElementState.ExistsInAnyState);
+                return true;
+            } catch (NoSuchElementException) 
+            {
+                return false;
+            }
         }
 
         public bool IsElementDisplayed()
         {
-            FrameworkLogger.Info($"Checking if web element by Locator[{locator}] and Name{ElementName} is Displayed");
-            IsWebElementIsNotNull();
-            return WebElement.Displayed;
+            FrameworkLogger.Info($"Checking if web element by Locator[{Locator}] and Name {ElementName} is Displayed");
+            return GetWebElement().Displayed;
         }
 
         public bool IsElementEnabled()
         {
-            FrameworkLogger.Info($"Checking if web element by Locator[{locator}] and Name{ElementName} is Enabled");
-            IsWebElementIsNotNull();
-            return WebElement.Enabled;
+            FrameworkLogger.Info($"Checking if web element by Locator[{Locator}] and Name{ElementName} is Enabled");
+            return GetWebElement().Enabled;
         }
 
         public void Click() 
         {
-            FrameworkLogger.Info($"Clicking on web element by Locator[{locator}] and Name{ElementName}");
-            IsWebElementIsNotNull();
-            WebElement.Click();
+            FrameworkLogger.Info($"Clicking on web element by Locator[{Locator}] and Name{ElementName}");
+            GetWebElement().Click();
         }
 
         public string GetText() 
         {
-            FrameworkLogger.Info($"Getting text from web element by Locator[{locator}] and Name{ElementName}");
-            IsWebElementIsNotNull();
-            return WebElement.Text;
+            FrameworkLogger.Info($"Getting text from web element by Locator[{Locator}] and Name{ElementName}");
+            return GetWebElement().Text;
         }
 
         public void Focus() 
         {
-            FrameworkLogger.Info($"Focusing on web element by Locator[{locator}] and Name{ElementName}");
-            Actions.MoveToElement(WebElement).Build().Perform();
+            FrameworkLogger.Info($"Focusing on web element by Locator[{Locator}] and Name{ElementName}");
+            Actions.MoveToElement(GetWebElement()).Build().Perform();
         }
 
-        private void InitializeWebElementBySearchType(SearchTypeEnum searchType)
+        public IWebElement GetWebElement()
         {
-            switch (searchType)
+            FrameworkLogger.Info($"Getting web element by Locator[{Locator}] and Name {ElementName}");
+            return GetWebElements().First();
+        }
+
+        public ReadOnlyCollection<IWebElement> GetWebElements()
+        {
+            FrameworkLogger.Info($"Getting web element by Locator[{Locator}] and Name {ElementName}");
+            return WaitForElements(Locator, State);
+        }
+
+        public ReadOnlyCollection<IWebElement> ReFindWebElements(ElementState state) 
+        {
+            FrameworkLogger.Info($"Refinding web elements by Locator[{Locator}] and Name {ElementName}");
+            return WaitForElements(Locator, state);
+        }
+
+        private ReadOnlyCollection<IWebElement> WaitForElements(By Locator, ElementState state)
+        {
+            var elementStateCondition = ResolveState(state);
+            var foundElements = new List<IWebElement>();
+            var resultElements = new List<IWebElement>();
+            try
             {
-                case SearchTypeEnum.Single:
-                    GetWebElement();
+                BrowserManager
+                    .ExplicitWaits()
+                    .WaitFor(driver =>
+                    {
+                        foundElements = driver.FindElements(Locator).ToList();
+                        resultElements = foundElements.Where(elementStateCondition).ToList();
+                        return resultElements.Any();
+                    }, TimeSpan.FromSeconds(BaseConfigurations.SearchForElementTimeout));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                HandleWebdriverTimeoutException(Locator, state, foundElements);
+            }
+            return resultElements.AsReadOnly();
+        }
+
+        private Func<IWebElement, bool> ResolveState(ElementState state)
+        {
+            Func<IWebElement, bool> elementStateCondition;
+            switch (state)
+            {
+                case ElementState.Displayed:
+                    elementStateCondition = element => element.Displayed;
                     break;
-                case SearchTypeEnum.Multiply:
-                    GetWebElements();
+                case ElementState.ExistsInAnyState:
+                    elementStateCondition = element => true;
+                    break;
+                case ElementState.Clickable:
+                    elementStateCondition = element => element.Displayed && element.Enabled;
                     break;
                 default:
-                    throw new NotImplementedException($"{searchType} hasn't any implementation");
+                    throw new InvalidOperationException($"{state} state is not recognized");
             }
+            return elementStateCondition;
         }
 
-        public void ReFindWebElements() 
-        {
-            FrameworkLogger.Info($"Refinding web elements by Locator[{locator}] and Name{ElementName}");
-            WebElements = BrowserManager.FindElements(locator);
-        }
-
-        private void GetWebElement() 
-        {
-            FrameworkLogger.Info($"Getting web element by Locator[{locator}] and Name{ElementName}");
-            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.KeyForDefaultFindElementTimeout);
-            ExplicitWait.WaitForCondition(() =>
-            {
-                try
-                {
-                    WebElement = BrowserManager.FindElement(locator);
-                    return true;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }, TimeSpan.FromSeconds(timeOut));
-        }
-
-        private void GetWebElements()
-        {
-            FrameworkLogger.Info($"Getting web elements by Locator[{locator}] and Name{ElementName}");
-            var timeOut = FrameworkJsonUtil.GetValueFromAppettingsFile<double>(FrameworkConstants.KeyForDefaultFindElementTimeout);
-            ExplicitWait.WaitForCondition(() => 
-            {
-                WebElements = BrowserManager.FindElements(locator);
-                return WebElements.Any();
-            }, TimeSpan.FromSeconds(timeOut));
-        }
-
-        private void IsWebElementIsNotNull()
-        {
-            if (WebElement == null)
-                throw new NullReferenceException($"Web element with locator [{locator}] and name [{ElementName}] is null");
+        private void HandleWebdriverTimeoutException(By Locator, ElementState state, List<IWebElement> foundElements)
+        {  
+            var message = foundElements.Any()
+                ? $"Elements were found by Locator '{Locator}'. But not in state '{state}'"
+                : $"No elements with Locator '{Locator}' found in {state} state";
+            throw new NoSuchElementException(message);
         }
     }
 }

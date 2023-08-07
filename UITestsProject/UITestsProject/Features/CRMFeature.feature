@@ -12,8 +12,8 @@ Scenario: CreateContact
 	When I click on Create button 
 	Then New contact page is opened
 	When I create a new contact
-		| FirstName | LastName  | Role | CustomersCategory    |
-		| Napoleon1769  | Bonaparte | CEO  | Customers, Suppliers |
+		| FirstName    | LastName  | Role | CustomersCategory    |
+		| Napoleon1769 | Bonaparte | CEO  | Customers, Suppliers |
 		And I save a new contact
 	Then Created contact page is opened
 	  And I check that the contact has proper values

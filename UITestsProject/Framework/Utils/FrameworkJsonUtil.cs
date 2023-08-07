@@ -7,7 +7,7 @@ namespace Framework.Utils
         private const string ResourcesFolder = "Resources";
         private const string AppSettingsJson = "appsetings.json";
 
-        public static T GetValueFromAppettingsFile<T>(string key)
+        public static T? GetValueFromAppettingsFile<T>(string key)
         {
             var pathToAppsetingsFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ResourcesFolder, AppSettingsJson);
             var json = File.ReadAllText(pathToAppsetingsFile);

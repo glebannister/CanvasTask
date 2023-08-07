@@ -1,4 +1,6 @@
-﻿using Framework.Elements;
+﻿using Framework.Application;
+using Framework.Constants;
+using Framework.Elements;
 using Framework.Page;
 using Framework.Utils;
 using Framework.Waits;
@@ -39,20 +41,22 @@ namespace UITestsProject.Pages
 
         private void SetContactsRole(string role) 
         {
-            var isSettingContactsRoleSuccessful = ExplicitWait.WaitForCondition(() =>
-            {
-                try
+            var isSettingContactsRoleSuccessful = BrowserManager
+                .ExplicitWaits()
+                .WaitForCondition(() =>
                 {
-                    BusinessRoleTextField.Focus();
-                    BusinessRoleTextField.SetText(role);
-                    SpesificBusinessRoleButton(role).Click();
-                    return true;
-                }
-                catch (NullReferenceException)
-                {
-                    return false;
-                }
-            }, TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+                    try
+                    {
+                        BusinessRoleTextField.Focus();
+                        BusinessRoleTextField.SetText(role);
+                        SpesificBusinessRoleButton(role).Click();
+                        return true;
+                    }
+                    catch (NullReferenceException)
+                    {
+                        return false;
+                    }
+                }, TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
             if (!isSettingContactsRoleSuccessful) throw new Exception("Setting contacts role action was not successful");
         }
 
@@ -61,7 +65,9 @@ namespace UITestsProject.Pages
             customersCategorys.ToList().ForEach(category =>
             {
                 CustomersCategoryButton.Focus();
-                ExplicitWait.WaitForCondition(() => CustomersCategoryButton.IsElementEnabled(), TimeSpan.FromSeconds(Timeouts.DefaulConditionWaitTime));
+                BrowserManager
+                    .ExplicitWaits()
+                    .WaitForCondition(() => CustomersCategoryButton.IsElementEnabled(), TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
                 CustomersCategoryButton.Click();
                 CustomersCategoryTextBox.SetText(category.RemoveAllSpaces());
                 SpesificCategoryButton(category.RemoveAllSpaces()).Click();

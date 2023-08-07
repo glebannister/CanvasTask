@@ -1,4 +1,5 @@
 ﻿using Framework.Logging;
+using Framework.Waits;
 using OpenQA.Selenium;
 
 namespace Framework.Application
@@ -9,6 +10,12 @@ namespace Framework.Application
         {
             FrameworkLogger.Info($"Navigate to URL:{url}");
             Browser.GetInstance().GetDriver().Navigate().GoToUrl(url);
+        }
+
+        public static ExplicitWait ExplicitWaits() 
+        {
+            Browser.GetInstance().GetDriver();
+            return Browser.GetInstance().ExplicitWait;
         }
 
         public static void AcceptAlert() 
