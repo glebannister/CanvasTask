@@ -2,6 +2,7 @@
 using Framework.Constants;
 using Framework.Elements;
 using Framework.Page;
+using Framework.Waits;
 using OpenQA.Selenium;
 
 namespace UITestsProject.Pages
@@ -21,14 +22,9 @@ namespace UITestsProject.Pages
 
         public string GetFirstLastNameOfNewContact() 
         {
-            BrowserManager
-                .ExplicitWaits()
-                .SleepWait(BaseConfigurations.DefaultIntervalTimeout);
-            BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() => 
-                    FirstLastNameLabel.IsElementDisplayed() && FirstLastNameLabel.IsElementEnabled(),
-                    TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+            ExplicitWait.SleepWait(TimeOutConfigurations.DefaultIntervalTimeout);
+            ExplicitWait.WaitForCondition(() => FirstLastNameLabel.IsElementDisplayed() && FirstLastNameLabel.IsElementEnabled(),
+                TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
             return FirstLastNameLabel.GetText();
         }
 

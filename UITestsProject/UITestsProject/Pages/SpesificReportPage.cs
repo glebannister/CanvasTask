@@ -23,10 +23,8 @@ namespace UITestsProject.Pages
 
         public bool IsReportReturnedValues() 
         {
-            return BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() =>
-                    RunReportResultTable.IsElementExists(), TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+            return ExplicitWait.WaitForCondition(() =>
+                    RunReportResultTable.IsElementExists(), TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
         }
     }
 }

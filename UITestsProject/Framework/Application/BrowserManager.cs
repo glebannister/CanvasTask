@@ -14,7 +14,6 @@ namespace Framework.Application
 
         public static ExplicitWait ExplicitWaits() 
         {
-            Browser.GetInstance().GetDriver();
             return Browser.GetInstance().ExplicitWait;
         }
 
@@ -28,7 +27,6 @@ namespace Framework.Application
         {
             FrameworkLogger.Info("Quit WebDriver");
             Browser.GetInstance().GetDriver().Quit();
-            Browser.GetInstance().NullDriver();
         }
 
         public static IWebElement FindElement(By locator)

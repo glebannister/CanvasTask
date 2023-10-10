@@ -101,7 +101,7 @@ namespace Framework.Elements
                         foundElements = driver.FindElements(Locator).ToList();
                         resultElements = foundElements.Where(elementStateCondition).ToList();
                         return resultElements.Any();
-                    }, TimeSpan.FromSeconds(BaseConfigurations.SearchForElementTimeout));
+                    }, TimeSpan.FromSeconds(TimeOutConfigurations.SearchForElementTimeout));
             }
             catch (WebDriverTimeoutException)
             {

@@ -1,10 +1,9 @@
-﻿using System.Text;
+﻿using System.Net.Http.Json;
 
 namespace UITestsProject.Utils
 {
     internal abstract class ApiRequestBase
     {
-        private const string EndpointValue = "endpoint";
         private const string ApplicationJsonValue = "application/json";
         protected string BaseUrl { get; set; }
 
@@ -13,22 +12,13 @@ namespace UITestsProject.Utils
             BaseUrl = baseUrl;
         }
 
-        public virtual async Task<HttpResponseMessage> PostRequest(string stringContent)
+        public virtual async Task<HttpResponseMessage> PostRequest(JsonContent content)
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri(BaseUrl);
-                var request = SetStringHttpContent(HttpMethod.Post, stringContent);
-                return await httpClient.SendAsync(request).ConfigureAwait(false);
+                httpClient.DefaultRequestHeaders.Add("HttpContent", ApplicationJsonValue);
+                return await httpClient.PostAsync(BaseUrl, content).ConfigureAwait(false);
             }
-        }
-
-        private HttpRequestMessage SetStringHttpContent(HttpMethod httpMethod, string content) 
-        {
-            return new HttpRequestMessage(httpMethod, EndpointValue)
-            {
-                Content = new StringContent(content, Encoding.UTF8, ApplicationJsonValue)
-            };
         }
     }
 }

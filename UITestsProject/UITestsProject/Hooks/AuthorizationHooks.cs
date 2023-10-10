@@ -1,7 +1,8 @@
-﻿using Framework.Utils;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using UITestsProject.Api;
+using UITestsProject.Constants.TestDataConstants;
 using UITestsProject.Interfaces;
+using UITestsProject.Models;
 using UITestsProject.Pages;
 
 namespace UITestsProject.Hooks
@@ -9,11 +10,8 @@ namespace UITestsProject.Hooks
     [Binding]
     internal class AuthorizationHooks
     {
-        private const string UrlKey = "CrmUrl";
         private const string UIAuthorizationTag = "UIAuthorization";
         private const string ApiAuthorizationTag = "ApiAuthorization";
-        private const string UserNameKey = "User";
-        private const string PasswordKey = "Password";
         private IPassAuthorization _passAuthorization;
         private ScenarioContext _scenarioContext;
 
@@ -32,13 +30,17 @@ namespace UITestsProject.Hooks
                     _passAuthorization = new AuthorizationPage();
                     break;
                 case var _ when scenarionTags.Contains(ApiAuthorizationTag):
-                    _passAuthorization = new ApiAuthorizationHelper(FrameworkJsonUtil.GetValueFromAppettingsFile<string>(UrlKey));
+                    _passAuthorization = new ApiAuthorizationHelper(ApiConfigurations.LoginUrl);
                     break;
                 default: throw new NotImplementedException("The FF has any authorization steps");
             }
-            var userName = FrameworkJsonUtil.GetValueFromAppettingsFile<string>(UserNameKey);
-            var password = FrameworkJsonUtil.GetValueFromAppettingsFile<string>(PasswordKey);
-            _passAuthorization.PassAuthorization(userName, password);
+            _passAuthorization.PassAuthorization(InitializeAuthModel());
         }
+
+        private AuthUserModel InitializeAuthModel() => new AuthUserModel()
+        {
+            UserName = TestDataConstants.TestUserName,
+            Password = TestDataConstants.TestUserPassword
+        };
     }
 }

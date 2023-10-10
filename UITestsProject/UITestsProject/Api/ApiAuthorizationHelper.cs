@@ -1,20 +1,20 @@
-﻿using UITestsProject.Interfaces;
+﻿using Framework.Utils;
+using UITestsProject.Interfaces;
+using UITestsProject.Models;
 using UITestsProject.Utils;
 
 namespace UITestsProject.Api
 {
     internal class ApiAuthorizationHelper : ApiRequestBase, IPassAuthorization
     {
-        private string authorizationContentPattern = "/username={0}&password={1}";
-
         public ApiAuthorizationHelper(string baseUrl) : base(baseUrl)
         {
         }
 
-        public void PassAuthorization(string userName, string password)
+        public void PassAuthorization(AuthUserModel authUserModel)
         {
-            var authorizationContent = string.Format(authorizationContentPattern, userName, password);
-            var responce = base.PostRequest(authorizationContent).Result;
+            var requestContent = FrameworkJsonUtil.SerializeToJsonContent(authUserModel);
+            var responce = base.PostRequest(requestContent).Result;
             if (!responce.IsSuccessStatusCode) 
             {
                 throw new Exception($"Authorization for {BaseUrl} has failed");

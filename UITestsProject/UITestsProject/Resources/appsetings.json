@@ -1,6 +1,9 @@
 {
   "Browser": "Chrome",
+  "PageLoadTimeOut": "120",
+
   "CrmUrl": "https://demo.1crmcloud.com/login.php",
+  "LoginUrl": "https://demo.1crmcloud.com/json.php?action=login",
   "ChromeOptions": [ "--incognito" ],
 
   "User": "admin",

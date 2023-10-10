@@ -1,7 +1,7 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Enums;
 using Framework.Logging;
+using Framework.Waits;
 using OpenQA.Selenium;
 
 namespace Framework.Elements
@@ -17,23 +17,21 @@ namespace Framework.Elements
         {
             FrameworkLogger.Info($"Getting texts from label by Locator[{Locator}] and Name {ElementName}");
             var listOfTexts = new List<string>();
-            BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() =>
-                    {
-                        try
-                        {
-                            listOfTexts = GetWebElements()
-                                .Select(label => label.Text)
-                                .ToList();
-                            return true;
-                        }
-                        catch (StaleElementReferenceException)
-                        {
-                            ReFindWebElements(elementState);
-                            return false;
-                        }
-                    }, TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+            ExplicitWait.WaitForCondition(() =>
+            {
+                try
+                {
+                    listOfTexts = GetWebElements()
+                        .Select(label => label.Text)
+                        .ToList();
+                    return true;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    ReFindWebElements(elementState);
+                    return false;
+                }
+            }, TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
             return listOfTexts;
         }
     }

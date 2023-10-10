@@ -2,6 +2,7 @@
 using Framework.Page;
 using OpenQA.Selenium;
 using UITestsProject.Interfaces;
+using UITestsProject.Models;
 
 namespace UITestsProject.Pages
 {
@@ -16,13 +17,13 @@ namespace UITestsProject.Pages
         {
         }
 
-        public void PassAuthorization(string userName, string password)
+        public void PassAuthorization(AuthUserModel authUserModel)
         {
             if (!IsPageOpened()) throw new Exception("AuthorizationPage is not displayed");
             UserNameTextField.ClearText();
-            UserNameTextField.SetText(userName);
+            UserNameTextField.SetText(authUserModel.UserName);
             PasswordTextField.ClearText();
-            PasswordTextField.SetText(password);
+            PasswordTextField.SetText(authUserModel.Password);
             uniqePageElement.Click();
         }
     }

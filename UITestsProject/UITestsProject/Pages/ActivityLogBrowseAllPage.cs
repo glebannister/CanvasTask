@@ -3,6 +3,7 @@ using Framework.Constants;
 using Framework.Elements;
 using Framework.Enums;
 using Framework.Page;
+using Framework.Waits;
 using OpenQA.Selenium;
 
 namespace UITestsProject.Pages
@@ -38,9 +39,8 @@ namespace UITestsProject.Pages
 
         public bool IsSpesificActivityNotExist(string activityName) 
         {
-            return BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() => !SpesificActivityLabel(activityName).IsElementExists(), TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+            return ExplicitWait.WaitForCondition(() => !SpesificActivityLabel(activityName).IsElementExists(),
+                TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
         }
     }
 }

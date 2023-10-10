@@ -1,8 +1,6 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Elements;
 using Framework.Logging;
-using Framework.Utils;
 using Framework.Waits;
 
 namespace Framework.Page
@@ -21,9 +19,8 @@ namespace Framework.Page
         public bool IsPageOpened() 
         {
             FrameworkLogger.Info($"Validate if page {PageName} is opened");
-            return  BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() => uniqePageElement.IsElementDisplayed(), TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+            return ExplicitWait.WaitForCondition(() => uniqePageElement.IsElementDisplayed(),
+                TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
         }
     }
 }

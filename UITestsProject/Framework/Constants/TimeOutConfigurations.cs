@@ -2,7 +2,7 @@
 
 namespace Framework.Constants
 {
-    public static class BaseConfigurations
+    public static class TimeOutConfigurations
     {
         public static double DefaultRetryForTimeout => FrameworkJsonUtil.GetValueFromAppettingsFile<double>("DefaulConditionWaitTime");
 

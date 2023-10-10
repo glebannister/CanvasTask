@@ -1,7 +1,7 @@
 ﻿using BoDi;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using UITestsProject.Constants;
+using UITestsProject.Constants.TestProjectConstants;
 using UITestsProject.Extensions;
 using UITestsProject.Models;
 using UITestsProject.Pages;

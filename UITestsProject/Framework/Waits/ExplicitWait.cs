@@ -1,5 +1,4 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Enums;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
@@ -14,13 +13,6 @@ namespace Framework.Waits
         public ExplicitWait(IWebDriver driver) 
         {
             _driver = driver;
-        }
-
-        public bool WaitForCondition(Func<bool> getMethod, TimeSpan? retryFor = null, TimeSpan? retryInterval = null)
-        {
-            var resolvedForTimeout = ResolveTimeoutValue(retryFor, TimeoutTypesEnum.RetryForTimeout);
-            var resolvedRetryTimeout = ResolveTimeoutValue(retryInterval, TimeoutTypesEnum.RetryInterval);
-            return For(getMethod, (bool g) => !g, resolvedForTimeout, resolvedRetryTimeout);
         }
 
         public T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? retryFor = null, TimeSpan? retryInterval = null, string message = null, IList<Type> exceptionsToIgnore = null)
@@ -38,16 +30,23 @@ namespace Framework.Waits
             return result;
         }
 
+        public static bool WaitForCondition(Func<bool> getMethod, TimeSpan? retryFor = null, TimeSpan? retryInterval = null)
+        {
+            var resolvedForTimeout = ResolveTimeoutValue(retryFor, TimeoutTypesEnum.RetryForTimeout);
+            var resolvedRetryTimeout = ResolveTimeoutValue(retryInterval, TimeoutTypesEnum.RetryInterval);
+            return For(getMethod, (bool g) => !g, resolvedForTimeout, resolvedRetryTimeout);
+        }
+
         /// <summary>
         /// The method is recommended to use only in specific situations
         /// </summary>
         /// <returns></returns>
-        public void SleepWait(double timeout) 
+        public static void SleepWait(double timeout) 
         {
             Thread.Sleep((int)timeout * 1000);
         }
 
-        private T For<T>(Func<T> getMethod, Predicate<T> shouldRetry, TimeSpan retryFor, TimeSpan retryInterval)
+        private static T For<T>(Func<T> getMethod, Predicate<T> shouldRetry, TimeSpan retryFor, TimeSpan retryInterval)
         {
             DateTime now = DateTime.Now;
             while (DateTime.Now.Subtract(now).TotalMilliseconds < retryFor.TotalMilliseconds)
@@ -84,7 +83,7 @@ namespace Framework.Waits
             return getMethod();
         }
 
-        private bool IsReferenceTypeAndIsNull<T>(T element)
+        private static bool IsReferenceTypeAndIsNull<T>(T element)
         {
             if (!typeof(T).IsValueType)
             {
@@ -93,18 +92,18 @@ namespace Framework.Waits
             return false;
         }
 
-        private TimeSpan ResolveTimeoutValue(TimeSpan? timeSpan, TimeoutTypesEnum timeoutTypesEnum) 
+        private static TimeSpan ResolveTimeoutValue(TimeSpan? timeSpan, TimeoutTypesEnum timeoutTypesEnum) 
         {
             switch (timeoutTypesEnum) 
             {
                 case TimeoutTypesEnum.RetryForTimeout:
                     return (TimeSpan)(timeSpan != null
                         ? timeSpan
-                        : TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+                        : TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
                 case TimeoutTypesEnum.RetryInterval:
                     return (TimeSpan)(timeSpan != null
                         ? timeSpan
-                        : TimeSpan.FromSeconds(BaseConfigurations.DefaultIntervalTimeout));
+                        : TimeSpan.FromSeconds(TimeOutConfigurations.DefaultIntervalTimeout));
                 default: throw new InvalidEnumArgumentException($"Timeout type {timeoutTypesEnum} hasn't been recognized");
             }
         }

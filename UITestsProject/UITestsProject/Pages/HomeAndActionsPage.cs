@@ -3,6 +3,7 @@ using Framework.Constants;
 using Framework.Elements;
 using Framework.Enums;
 using Framework.Page;
+using Framework.Waits;
 using OpenQA.Selenium;
 using UITestsProject.Extensions;
 
@@ -35,9 +36,8 @@ namespace UITestsProject.Pages
 
         private void ClickOnSpesificItem(string itemName) 
         {
-            BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() => NavigationWebContainer.IsElementExists(), TimeSpan.FromSeconds(BaseConfigurations.DefaultIntervalTimeout));
+            ExplicitWait.WaitForCondition(() => NavigationWebContainer.IsElementExists(),
+                TimeSpan.FromSeconds(TimeOutConfigurations.DefaultIntervalTimeout));
             NavigationWebContainer.ClickElementByHrefContains(itemName.RemoveAllSpaces());
         }
     }

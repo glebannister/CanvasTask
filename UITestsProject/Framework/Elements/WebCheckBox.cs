@@ -2,6 +2,7 @@
 using Framework.Constants;
 using Framework.Enums;
 using Framework.Logging;
+using Framework.Waits;
 using OpenQA.Selenium;
 
 namespace Framework.Elements
@@ -24,13 +25,11 @@ namespace Framework.Elements
 
         private void SetCheckBoxValue(IWebElement checkBox, bool value) 
         {
-            BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() =>
-                {
-                    checkBox.Click();
-                    return checkBox.Selected == value;
-                }, TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+            ExplicitWait.WaitForCondition(() =>
+            {
+                checkBox.Click();
+                return checkBox.Selected == value;
+            }, TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
         }
     }
 }

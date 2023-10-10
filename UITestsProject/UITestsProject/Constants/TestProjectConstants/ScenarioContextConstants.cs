@@ -1,4 +1,4 @@
-﻿namespace UITestsProject.Constants
+﻿namespace UITestsProject.Constants.TestProjectConstants
 {
     internal static class ScenarioContextConstants
     {

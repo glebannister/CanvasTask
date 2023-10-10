@@ -41,22 +41,20 @@ namespace UITestsProject.Pages
 
         private void SetContactsRole(string role) 
         {
-            var isSettingContactsRoleSuccessful = BrowserManager
-                .ExplicitWaits()
-                .WaitForCondition(() =>
+            var isSettingContactsRoleSuccessful = ExplicitWait.WaitForCondition(() =>
+            {
+                try
                 {
-                    try
-                    {
-                        BusinessRoleTextField.Focus();
-                        BusinessRoleTextField.SetText(role);
-                        SpesificBusinessRoleButton(role).Click();
-                        return true;
-                    }
-                    catch (NullReferenceException)
-                    {
-                        return false;
-                    }
-                }, TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+                    BusinessRoleTextField.Focus();
+                    BusinessRoleTextField.SetText(role);
+                    SpesificBusinessRoleButton(role).Click();
+                    return true;
+                }
+                catch (NullReferenceException)
+                {
+                    return false;
+                }
+            }, TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
             if (!isSettingContactsRoleSuccessful) throw new Exception("Setting contacts role action was not successful");
         }
 
@@ -65,9 +63,8 @@ namespace UITestsProject.Pages
             customersCategorys.ToList().ForEach(category =>
             {
                 CustomersCategoryButton.Focus();
-                BrowserManager
-                    .ExplicitWaits()
-                    .WaitForCondition(() => CustomersCategoryButton.IsElementEnabled(), TimeSpan.FromSeconds(BaseConfigurations.DefaultRetryForTimeout));
+                ExplicitWait.WaitForCondition(() => CustomersCategoryButton.IsElementEnabled(),
+                    TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));
                 CustomersCategoryButton.Click();
                 CustomersCategoryTextBox.SetText(category.RemoveAllSpaces());
                 SpesificCategoryButton(category.RemoveAllSpaces()).Click();
