@@ -29,7 +29,7 @@ namespace UITestsProject.Steps
         [Then("I check that the contact has proper values")]
         public void CheckThatContactHasProperValues()
         {
-            var expectedContactValues = _scenarioContext.Get<ContractUserModel>(ScenarioContextConstants.ContactUserModel);
+            var expectedContactValues = _scenarioContext.Get<NewContractUserModel>(ScenarioContextConstants.ContactUserModel);
             var firstLastNameActual = _createdContactPage.GetFirstLastNameOfNewContact().RemoveAllSpaces();
             var businessRoleActual = _createdContactPage.GetBusinessRoleOfNewContact();
             var categoriesActual = _createdContactPage.GetCategoriesOfNewContact().NormoizeCategoriesValue();

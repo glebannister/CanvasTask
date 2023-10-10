@@ -63,6 +63,17 @@ namespace Framework.Elements
             return GetWebElement().Text;
         }
 
+        public List<string> GetTexts()
+        {
+            FrameworkLogger.Info("Getting texts for all occurences");
+            return WaitForElements(Locator, State).Select(el => el.GetAttribute("textContent").Trim()).ToList();
+        }
+
+        public int GetNumberOfFoundElements()
+        {
+            return WaitForElements(Locator, State).Count();
+        }
+
         public void Focus() 
         {
             FrameworkLogger.Info($"Focusing on web element by Locator[{Locator}] and Name{ElementName}");

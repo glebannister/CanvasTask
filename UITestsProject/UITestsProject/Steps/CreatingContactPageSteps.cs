@@ -20,7 +20,7 @@ namespace UITestsProject.Steps
         }
 
         [When("I create a new contact")]
-        public void CreateNewContact(ContractUserModel contractUserModel) 
+        public void CreateNewContact(NewContractUserModel contractUserModel) 
         {
             _scenarioContext.Add(ScenarioContextConstants.ContactUserModel, contractUserModel);
             var customersCategoryArray = contractUserModel.CustomersCategory.Split(',');

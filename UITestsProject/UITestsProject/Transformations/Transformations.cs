@@ -8,9 +8,15 @@ namespace UITestsProject.Transformations
     internal class Transformations
     {
         [StepArgumentTransformation("(.*)")]
-        public ContractUserModel ContractUserModelTransformation(Table table) 
+        public NewContractUserModel NewContractUserModelTransformation(Table table) 
         {
-            return table.CreateInstance<ContractUserModel>();
+            return table.CreateInstance<NewContractUserModel>();
+        }
+
+        [StepArgumentTransformation("(.*)")]
+        public IEnumerable<ContactUserModel> ContractUserModelsTransformation(Table table)
+        {
+            return table.CreateSet<ContactUserModel>();
         }
     }
 }
