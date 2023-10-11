@@ -12,7 +12,7 @@ namespace UITestsProject.Steps
         [Given("I navigate to CRM login page")]
         public void NavigateToCRMLoginPage() 
         {
-            var crmUrl = FrameworkJsonUtil.GetValueFromAppettingsFile<string>(UrlKey);
+            var crmUrl = new AppSettings().GetConfigurationOnlyFileValue<string>(UrlKey);
             BrowserManager.NavigateToUrl(crmUrl);
         }
     }

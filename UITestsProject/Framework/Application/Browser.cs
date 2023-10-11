@@ -5,7 +5,6 @@ using OpenQA.Selenium.Chrome;
 using Framework.Logging;
 using System.ComponentModel;
 using Framework.Waits;
-using OpenQA.Selenium.Remote;
 using Framework.Constants;
 
 namespace Framework.Application
@@ -14,8 +13,9 @@ namespace Framework.Application
     { 
         public ExplicitWait ExplicitWait { get; private set; }
 
-        private IWebDriver ?_driver;
+        private IWebDriver ? _driver;
         [ThreadStatic] private static Browser? _browserInstance;
+
 
         private Browser() 
         {

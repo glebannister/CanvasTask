@@ -4,10 +4,10 @@ namespace Framework.Constants
 {
     public static class TimeOutConfigurations
     {
-        public static double DefaultRetryForTimeout => FrameworkJsonUtil.GetValueFromAppettingsFile<double>("DefaulConditionWaitTime");
+        public static double DefaultRetryForTimeout => new AppSettings().GetConfigurationOnlyFileValue<double>("DefaulConditionWaitTime");
 
-        public static double DefaultIntervalTimeout => FrameworkJsonUtil.GetValueFromAppettingsFile<double>("DefaultInterval");
+        public static double DefaultIntervalTimeout => new AppSettings().GetConfigurationOnlyFileValue<double>("DefaultInterval");
 
-        public static double SearchForElementTimeout => FrameworkJsonUtil.GetValueFromAppettingsFile<double>("DefaulTimeoutForFindingElement");
+        public static double SearchForElementTimeout => new AppSettings().GetConfigurationOnlyFileValue<double>("DefaulTimeoutForFindingElement");
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using UITestsProject.Constants.TestProjectConstants;
 
 [assembly: Parallelizable(ParallelScope.Fixtures)]
-[assembly: LevelOfParallelism(2)]
+[assembly: LevelOfParallelism(EnvironmentConstants.NumberOfParallerThreads)]

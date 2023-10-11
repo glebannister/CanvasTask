@@ -19,10 +19,6 @@ namespace UITestsProject.Pages
             CreateButton.Click();
         }
 
-        public string GetTableCellValue(int cellIndex, string columName) 
-        {
-            var value = ContactsTable.GetColumnValue(cellIndex, columName);
-            return "GORDEYCHICK";
-        }
+        public string GetTableCellValue(int cellIndex, string columName) => ContactsTable.GetColumnValue(cellIndex, columName);
     }
 }

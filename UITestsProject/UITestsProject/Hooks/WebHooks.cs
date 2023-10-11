@@ -24,7 +24,7 @@ namespace UITestsProject.Hooks
             switch (scenarionTags)
             {
                 case var _ when scenarionTags.Contains(CrmUiTestTag):
-                    var crmUrl = FrameworkJsonUtil.GetValueFromAppettingsFile<string>(UrlKey);
+                    var crmUrl = new AppSettings().GetConfigurationOnlyFileValue<string>(UrlKey);
                     BrowserManager.NavigateToUrl(crmUrl);
                     break;
                 default: throw new NotImplementedException("The type of test has not been defined");
