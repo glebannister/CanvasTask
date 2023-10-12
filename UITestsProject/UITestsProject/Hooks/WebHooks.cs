@@ -1,6 +1,7 @@
 ﻿using Framework.Application;
 using Framework.Utils;
 using TechTalk.SpecFlow;
+using UITestsProject.Constants.TestProjectConstants;
 
 namespace UITestsProject.Hooks
 {
@@ -8,7 +9,6 @@ namespace UITestsProject.Hooks
     internal class WebHooks
     {
         private const string QuiteWebDriverTag = "QuitWebDriver";
-        private const string UrlKey = "CrmUrl";
         private const string CrmUiTestTag = "CrmUiTest";
         private ScenarioContext _scenarioContext;
 
@@ -24,8 +24,7 @@ namespace UITestsProject.Hooks
             switch (scenarionTags)
             {
                 case var _ when scenarionTags.Contains(CrmUiTestTag):
-                    var crmUrl = new AppSettings().GetConfigurationOnlyFileValue<string>(UrlKey);
-                    BrowserManager.NavigateToUrl(crmUrl);
+                    BrowserManager.NavigateToUrl(ApplicationConfiguration.CrmUrl);
                     break;
                 default: throw new NotImplementedException("The type of test has not been defined");
             }

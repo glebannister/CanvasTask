@@ -1,4 +1,4 @@
-﻿using Framework.Utils;
+﻿using Framework.Helpers;
 using UITestsProject.Interfaces;
 using UITestsProject.Models;
 using UITestsProject.Utils;
@@ -7,7 +7,7 @@ namespace UITestsProject.Api
 {
     internal class ApiAuthorizationHelper : ApiRequestBase, IPassAuthorization
     {
-        private FrameworkJsonHelper _frameworkJsonUtil = new FrameworkJsonHelper();
+        private FrameworkJsonHelper _frameworkJsonHelper = new FrameworkJsonHelper();
 
         public ApiAuthorizationHelper(string baseUrl) : base(baseUrl)
         {
@@ -15,7 +15,7 @@ namespace UITestsProject.Api
 
         public void PassAuthorization(AuthUserModel authUserModel)
         {
-            var requestContent = _frameworkJsonUtil.SerializeToJsonContent(authUserModel);
+            var requestContent = _frameworkJsonHelper.SerializeToJsonContent(authUserModel);
             var responce = base.PostRequest(requestContent).Result;
             if (!responce.IsSuccessStatusCode) 
             {

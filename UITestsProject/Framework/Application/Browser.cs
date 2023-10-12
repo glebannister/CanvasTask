@@ -16,7 +16,6 @@ namespace Framework.Application
         private IWebDriver ? _driver;
         [ThreadStatic] private static Browser? _browserInstance;
 
-
         private Browser() 
         {
         }

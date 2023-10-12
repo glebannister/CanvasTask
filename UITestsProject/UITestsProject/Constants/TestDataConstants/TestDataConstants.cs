@@ -1,4 +1,5 @@
-﻿using Framework.Utils;
+﻿using Framework.Helpers;
+using Framework.Utils;
 
 namespace UITestsProject.Constants.TestDataConstants
 {
@@ -6,7 +7,8 @@ namespace UITestsProject.Constants.TestDataConstants
     {
         public const string CategoryValue = "Category";
         public const string DefaultFirstLastNameWebText = "FirstName\r\n(none)\r\nLastName";
-        public static string TestUserName => new AppSettings().GetConfigurationOnlyFileValue<string>("User");
-        public static string TestUserPassword => new AppSettings().GetConfigurationOnlyFileValue<string>("Password");
+        public static string TestUserName => _appSettingsHelper.GetConfigurationOnlyFileValue<string>("User");
+        public static string TestUserPassword => _appSettingsHelper.GetConfigurationOnlyFileValue<string>("Password");
+        private static AppSettingsHelper _appSettingsHelper = new AppSettingsHelper();
     }
 }
