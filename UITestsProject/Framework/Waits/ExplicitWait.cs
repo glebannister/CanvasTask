@@ -15,13 +15,12 @@ namespace Framework.Waits
             _driver = driver;
         }
 
-        public T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? retryFor = null, TimeSpan? retryInterval = null, string message = null, IList<Type> exceptionsToIgnore = null)
+        public T WaitFor<T>(Func<IWebDriver, T> condition, TimeSpan? retryFor = null, TimeSpan? retryInterval = null, string message = "", IList<Type> exceptionsToIgnore = null)
         {
             var resolvedForTimeout = ResolveTimeoutValue(retryFor, TimeoutTypesEnum.RetryForTimeout);
             var resolvedRetryTimeout = ResolveTimeoutValue(retryInterval, TimeoutTypesEnum.RetryInterval);
             var wait = new WebDriverWait(_driver, resolvedForTimeout)
             {
-                Message = message,
                 PollingInterval = resolvedRetryTimeout
             };
             var ignoreExceptions = exceptionsToIgnore ?? new List<Type> { typeof(StaleElementReferenceException) };

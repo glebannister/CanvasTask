@@ -1,5 +1,5 @@
-﻿using UITestsProject.Constants.TestDataConstants;
-using UITestsProject.Constants.TestProjectConstants;
+﻿using UITestsProject.Configuration.Constants.TestDataConstants;
+using UITestsProject.Configuration.Constants.TestProjectConstants;
 
 namespace UITestsProject.Extensions
 {

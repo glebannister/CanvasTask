@@ -1,15 +1,5 @@
 {
   "Browser": "Chrome",
   "PageLoadTimeOut": "120",
-
-  "CrmUrl": "https://demo.1crmcloud.com/login.php",
-  "LoginUrl": "https://demo.1crmcloud.com/json.php?action=login",
-  "ChromeOptions": [ "--incognito" ],
-
-  "User": "admin",
-  "Password": "admin",
-
-  "DefaultInterval": "1.00",
-  "DefaulConditionWaitTime": "5.00",
-  "DefaulTimeoutForFindingElement": "3.00"
+  "ChromeOptions": [ "--incognito" ]
 }

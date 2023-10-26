@@ -1,7 +1,7 @@
 ﻿using Framework.Application;
 using Framework.Utils;
 using TechTalk.SpecFlow;
-using UITestsProject.Constants.TestProjectConstants;
+using UITestsProject.Configuration.Constants.TestProjectConstants;
 
 namespace UITestsProject.Hooks
 {

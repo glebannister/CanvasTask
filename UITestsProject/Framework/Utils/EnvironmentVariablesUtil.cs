@@ -2,7 +2,7 @@
 {
     public static class EnvironmentVariablesUtil
     {
-        public static string GetEnviromentVariableFromAllTargets(string name) 
+        public static string GetEnvironmentVariableFromAllTargets(string name) 
         {
             List<string> values = new List<string>
             {

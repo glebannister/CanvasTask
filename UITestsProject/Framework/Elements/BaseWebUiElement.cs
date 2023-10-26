@@ -2,6 +2,7 @@
 using Framework.Constants;
 using Framework.Enums;
 using Framework.Logging;
+using Framework.Waits;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
@@ -10,13 +11,14 @@ namespace Framework.Elements
 {
     public abstract class BaseWebUiElement
     {
-        public string ElementName { get; set; }
+        public string ElementName;
 
         protected ElementState State { get; set; }
 
         protected By Locator { get; set; }
 
-        public Actions Actions { get; private set; }
+        protected Actions Actions { get; private set; }
+        protected ExplicitWait ExplicitWait { get; private set; }
 
         protected BaseWebUiElement(By Locator, string elementName, ElementState state) 
         {
@@ -24,6 +26,7 @@ namespace Framework.Elements
             ElementName = elementName;
             State = state;
             Actions = new Actions(Browser.GetInstance().GetDriver());
+            ExplicitWait = new ExplicitWait(Browser.GetInstance().GetDriver());
         }
 
         public bool IsElementExists()
@@ -92,9 +95,10 @@ namespace Framework.Elements
             return WaitForElements(Locator, State);
         }
 
-        public ReadOnlyCollection<IWebElement> ReFindWebElements(ElementState state) 
+        public ReadOnlyCollection<IWebElement> ReFindWebElements(ElementState state, bool setNewState = true) 
         {
             FrameworkLogger.Info($"Refinding web elements by Locator[{Locator}] and Name {ElementName}");
+            if ( setNewState ) {State = state;}
             return WaitForElements(Locator, state);
         }
 
@@ -105,8 +109,7 @@ namespace Framework.Elements
             var resultElements = new List<IWebElement>();
             try
             {
-                BrowserManager
-                    .ExplicitWaits()
+                    ExplicitWait
                     .WaitFor(driver =>
                     {
                         foundElements = driver.FindElements(Locator).ToList();

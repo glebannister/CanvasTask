@@ -2,10 +2,8 @@
 using Framework.Constants;
 using Framework.Elements;
 using Framework.Page;
-using Framework.Utils;
 using Framework.Waits;
 using OpenQA.Selenium;
-using UITestsProject.Constants;
 using UITestsProject.Extensions;
 
 namespace UITestsProject.Pages

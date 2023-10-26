@@ -1,14 +1,11 @@
-﻿using Framework.Helpers;
-
-namespace Framework.Constants
+﻿namespace Framework.Constants
 {
     public static class TimeOutConfigurations
     {
-        public static double DefaultRetryForTimeout => _appSettingsHelper.GetConfigurationOnlyFileValue<double>("DefaulConditionWaitTime");
+        public static double DefaultRetryForTimeout;
 
-        public static double DefaultIntervalTimeout => _appSettingsHelper.GetConfigurationOnlyFileValue<double>("DefaultInterval");
+        public static double DefaultIntervalTimeout;
 
-        public static double SearchForElementTimeout => _appSettingsHelper.GetConfigurationOnlyFileValue<double>("DefaulTimeoutForFindingElement");
-        private static AppSettingsHelper _appSettingsHelper = new AppSettingsHelper();
+        public static double SearchForElementTimeout;
     }
 }

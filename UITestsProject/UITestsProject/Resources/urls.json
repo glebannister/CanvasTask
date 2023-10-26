@@ -1,0 +1,4 @@
+{
+  "CrmUrl": "https://demo.1crmcloud.com/login.php",
+  "LoginUrl": "https://demo.1crmcloud.com/json.php?action=login"
+}

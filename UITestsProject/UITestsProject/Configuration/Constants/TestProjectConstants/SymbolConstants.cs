@@ -1,4 +1,4 @@
-﻿namespace UITestsProject.Constants.TestProjectConstants
+﻿namespace UITestsProject.Configuration.Constants.TestProjectConstants
 {
     internal static class SymbolConstants
     {

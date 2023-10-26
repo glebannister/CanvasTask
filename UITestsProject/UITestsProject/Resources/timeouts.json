@@ -1,0 +1,5 @@
+{
+  "DefaultInterval": "1.00",
+  "DefaultConditionWaitTime": "5.00",
+  "DefaultTimeoutForFindingElement": "3.00"
+}

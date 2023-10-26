@@ -28,7 +28,7 @@ namespace Framework.Elements
                 }
                 catch (StaleElementReferenceException)
                 {
-                    ReFindWebElements(elementState);
+                    ReFindWebElements(elementState, setNewState: false);
                     return false;
                 }
             }, TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));

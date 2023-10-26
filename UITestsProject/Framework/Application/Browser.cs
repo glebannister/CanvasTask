@@ -31,8 +31,6 @@ namespace Framework.Application
                     ChromeDriverService chromeDriverService = ChromeDriverService.CreateDefaultService();
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
-                    //new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-                    //capabilities = DefineChromeOptions();
                     _driver = new ChromeDriver(DefineChromeOptions());
                     break;
                 case DriversEnum.Firefox:
@@ -57,11 +55,11 @@ namespace Framework.Application
             return _browserInstance;
         }
 
-        private void ManageDriverDefaultSettings(IWebDriver Driver)
+        private void ManageDriverDefaultSettings(IWebDriver driver)
         {
             FrameworkLogger.Info("Manage default WebDriver settings");
-            Driver.Manage().Window.Maximize();
-            Driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(DriverConfigurations.PageLoadTimeOut));
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(DriverConfigurations.PageLoadTimeOut));
         }
 
         private ChromeOptions DefineChromeOptions() 

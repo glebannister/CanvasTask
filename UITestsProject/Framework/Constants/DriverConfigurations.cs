@@ -1,12 +1,9 @@
-﻿using Framework.Helpers;
-
-namespace Framework.Constants
+﻿namespace Framework.Constants
 {
     public static class DriverConfigurations
     {
-        internal static string BrowserName => _appSettingsHelper.GetConfigurationValueWithEnvVariables("Browser");
-        internal static int PageLoadTimeOut => _appSettingsHelper.GetConfigurationOnlyFileValue<int>("PageLoadTimeOut");
-        internal static IEnumerable<string> ChromeOptions => _appSettingsHelper.GetConfigurationOnlyFileValue<IEnumerable<string>>("ChromeOptions");
-        private static AppSettingsHelper _appSettingsHelper = new AppSettingsHelper();
+        public static string BrowserName;
+        public static int PageLoadTimeOut;
+        public static IEnumerable<string> ChromeOptions;
     }
 }
