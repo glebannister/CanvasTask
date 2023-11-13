@@ -16,12 +16,11 @@ namespace UITestsProject.Pages
         private WebCheckBox SelectActivitiesCheckBoxes => new WebCheckBox(By.XPath("//td//input[@type='checkbox']"), "Select activities check boxes", ElementState.ExistsInAnyState);
         private WebLabel SpesificActivityLabel(string activityName) => new WebLabel(By.XPath($"//td//span[@class='detailLink']//a[@class='listViewExtLink' and text()='{activityName}']"), $"{activityName} label", ElementState.ExistsInAnyState);
 
-        public ActivityLogBrowseAllPage() 
+        public ActivityLogBrowseAllPage()
             : base(new WebLabel(By.XPath("//span[text()='Activity Log']"), "Activity log label"), "Activity log browse all page")
-        {
-        }
+        { }
 
-        public List<string> GetItemsToDeleteNames(int amountOfItemsToDetele) 
+        public List<string> GetItemsToDeleteNames(int amountOfItemsToDetele)
         {
             return ActivitiesNamesLabels
                 .GetTextsFromLabels()
@@ -29,7 +28,7 @@ namespace UITestsProject.Pages
                 .ToList();
         }
 
-        public void DeleteFirstItemsFormTheTable(int amountOfItems) 
+        public void DeleteFirstItemsFormTheTable(int amountOfItems)
         {
             SelectActivitiesCheckBoxes.SetCheckBoxesValues(amountOfItems, true);
             ActionsButton.Click();
@@ -37,7 +36,7 @@ namespace UITestsProject.Pages
             BrowserManager.AcceptAlert();
         }
 
-        public bool IsSpesificActivityNotExist(string activityName) 
+        public bool IsSpesificActivityNotExist(string activityName)
         {
             return ExplicitWait.WaitForCondition(() => !SpesificActivityLabel(activityName).IsElementExists(),
                 TimeSpan.FromSeconds(TimeOutConfigurations.DefaultRetryForTimeout));

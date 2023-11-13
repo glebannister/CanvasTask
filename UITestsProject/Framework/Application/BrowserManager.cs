@@ -1,4 +1,5 @@
 ﻿using Framework.Logging;
+using OpenQA.Selenium;
 
 namespace Framework.Application
 {
@@ -14,6 +15,11 @@ namespace Framework.Application
         {
             FrameworkLogger.Info("Accepting allert");
             Browser.GetInstance().GetDriver().SwitchTo().Alert().Accept();
+        }
+
+        public static IWebDriver GetDriver() 
+        {
+            return Browser.GetInstance().GetDriver();
         }
 
         public static void Quit() 

@@ -17,10 +17,13 @@ namespace Framework.Elements
         {
             FrameworkLogger
                 .Info($"Clicking on web element by{HrefAttribute} in container by Locator[{Locator}] and Name{ElementName}");
-            var itemElement = GetWebElements().First(element => element.GetAttribute(HrefAttribute).Contains(text));
-            Actions.MoveToElement(itemElement);
-            Actions.Click();
-            Actions.Build().Perform();
+            var itemElement = GetWebElements()
+                .First(element => element.GetAttribute(HrefAttribute)
+                .Contains(text));
+            Actions.MoveToElement(itemElement)
+                .Click()
+                .Build()
+                .Perform();
         }
     }
 }

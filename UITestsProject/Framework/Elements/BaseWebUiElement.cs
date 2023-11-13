@@ -74,7 +74,7 @@ namespace Framework.Elements
 
         public int GetNumberOfFoundElements()
         {
-            return WaitForElements(Locator, State).Count();
+            return GetWebElements().Count();
         }
 
         public void Focus() 
@@ -119,7 +119,7 @@ namespace Framework.Elements
             }
             catch (WebDriverTimeoutException)
             {
-                HandleWebdriverTimeoutException(Locator, state, foundElements);
+                HandleWebdriverTimeoutException(state, foundElements);
             }
             return resultElements.AsReadOnly();
         }
@@ -144,7 +144,7 @@ namespace Framework.Elements
             return elementStateCondition;
         }
 
-        private void HandleWebdriverTimeoutException(By Locator, ElementState state, List<IWebElement> foundElements)
+        private void HandleWebdriverTimeoutException(ElementState state, List<IWebElement> foundElements)
         {  
             var message = foundElements.Any()
                 ? $"Elements were found by Locator '{Locator}'. But not in state '{state}'"

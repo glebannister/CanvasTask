@@ -55,7 +55,7 @@ namespace Framework.Waits
                 {
                     val = getMethod();
                 }
-                catch (Exception)
+                catch
                 {
                     Thread.Sleep(retryInterval);
                     continue;
