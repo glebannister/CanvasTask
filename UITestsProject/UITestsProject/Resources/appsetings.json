@@ -1,5 +1,8 @@
 {
   "Browser": "Chrome",
   "PageLoadTimeOut": "120",
-  "ChromeOptions": [ "--incognito" ]
+  "ChromeOptions": [ "--incognito" ],
+
+  "WindowWidth": "0",
+  "WindowHeight": "0"
 }

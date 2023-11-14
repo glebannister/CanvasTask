@@ -58,7 +58,10 @@ namespace Framework.Application
         private void ManageDriverDefaultSettings(IWebDriver driver)
         {
             FrameworkLogger.Info("Manage default WebDriver settings");
-            driver.Manage().Window.Maximize();
+            if (DriverConfigurations.WindowWidth != 0 && DriverConfigurations.WindowHeight != 0) 
+            {
+                driver.Manage().Window.Size = new System.Drawing.Size(DriverConfigurations.WindowWidth, DriverConfigurations.WindowHeight);
+            } else driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(DriverConfigurations.PageLoadTimeOut));
         }
 

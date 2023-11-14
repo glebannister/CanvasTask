@@ -33,7 +33,7 @@ namespace UITestsProject.Pages
             SelectActivitiesCheckBoxes.SetCheckBoxesValues(amountOfItems, true);
             ActionsButton.Click();
             DeleteButton.Click();
-            BrowserManager.AcceptAlert();
+            ApplicationManager.AcceptAlert();
         }
 
         public bool IsSpesificActivityNotExist(string activityName)

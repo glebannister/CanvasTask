@@ -3,29 +3,34 @@ using OpenQA.Selenium;
 
 namespace Framework.Application
 {
-    public static class BrowserManager
+    public static class ApplicationManager
     {
+        public static IWebDriver GetWebDriver()
+        {
+            return Browser.GetInstance().GetDriver();
+        }
+
         public static void NavigateToUrl(string url) 
         {
             FrameworkLogger.Info($"Navigate to URL:{url}");
-            Browser.GetInstance().GetDriver().Navigate().GoToUrl(url);
+            GetWebDriver().Navigate().GoToUrl(url);
         }
 
         public static void AcceptAlert() 
         {
             FrameworkLogger.Info("Accepting allert");
-            Browser.GetInstance().GetDriver().SwitchTo().Alert().Accept();
+            GetWebDriver().SwitchTo().Alert().Accept();
         }
 
-        public static IWebDriver GetDriver() 
+        public static void SwitchToTab(string windowName) 
         {
-            return Browser.GetInstance().GetDriver();
+            GetWebDriver().SwitchTo().Window(windowName);
         }
 
         public static void Quit() 
         {
             FrameworkLogger.Info("Quit WebDriver");
-            Browser.GetInstance().GetDriver().Quit();
+            GetWebDriver().Quit();
         }
     }
 }

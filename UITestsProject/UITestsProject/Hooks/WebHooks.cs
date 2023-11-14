@@ -24,7 +24,7 @@ namespace UITestsProject.Hooks
             switch (scenarionTags)
             {
                 case var _ when scenarionTags.Contains(CrmUiTestTag):
-                    BrowserManager.NavigateToUrl(ApplicationConfiguration.CrmUrl);
+                    ApplicationManager.NavigateToUrl(ApplicationConfiguration.CrmUrl);
                     break;
                 default: throw new NotImplementedException("The type of test has not been defined");
             }
@@ -35,7 +35,7 @@ namespace UITestsProject.Hooks
         {
             if (_scenarioContext.ScenarioInfo.Tags.Contains(QuiteWebDriverTag)) 
             {
-                BrowserManager.Quit();
+                ApplicationManager.Quit();
             }
         }
     }

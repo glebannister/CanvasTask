@@ -1,7 +1,6 @@
 ﻿using Framework.Application;
 using Framework.Enums;
 using OpenQA.Selenium;
-using System;
 
 namespace Framework.Elements
 {
@@ -15,12 +14,12 @@ namespace Framework.Elements
         {
             try
             {
-                BrowserManager.GetDriver().SwitchTo().Frame(GetWebElement());
+                ApplicationManager.GetWebDriver().SwitchTo().Frame(GetWebElement());
                 action.Invoke();
             }
             finally
             {
-                BrowserManager.GetDriver().SwitchTo().DefaultContent();
+                ApplicationManager.GetWebDriver().SwitchTo().DefaultContent();
             }
         }
 
@@ -28,7 +27,7 @@ namespace Framework.Elements
         {
             try
             {
-                BrowserManager.GetDriver().SwitchTo().Frame(GetWebElement());
+                ApplicationManager.GetWebDriver().SwitchTo().Frame(GetWebElement());
                 return func();
             }
             catch 
@@ -37,7 +36,7 @@ namespace Framework.Elements
             }
             finally
             {
-                BrowserManager.GetDriver().SwitchTo().DefaultContent();
+                ApplicationManager.GetWebDriver().SwitchTo().DefaultContent();
             }
         }
 
@@ -47,13 +46,13 @@ namespace Framework.Elements
             {
                 if (IsElementDisplayed())
                 {
-                    BrowserManager.GetDriver().SwitchTo().Frame(GetWebElement());
+                    ApplicationManager.GetWebDriver().SwitchTo().Frame(GetWebElement());
                     action.Invoke();
                 }
             }
             finally 
             {
-                BrowserManager.GetDriver().SwitchTo().DefaultContent();
+                ApplicationManager.GetWebDriver().SwitchTo().DefaultContent();
             }
         }
 
@@ -63,7 +62,7 @@ namespace Framework.Elements
             {
                 if (IsElementDisplayed())
                 {
-                    BrowserManager.GetDriver().SwitchTo().Frame(GetWebElement());
+                    ApplicationManager.GetWebDriver().SwitchTo().Frame(GetWebElement());
                     return func();
                 }
                 else return default(T);
@@ -74,7 +73,7 @@ namespace Framework.Elements
             }
             finally
             {
-                BrowserManager.GetDriver().SwitchTo().DefaultContent();
+                ApplicationManager.GetWebDriver().SwitchTo().DefaultContent();
             }
         }
     }

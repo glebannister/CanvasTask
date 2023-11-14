@@ -18,6 +18,8 @@ namespace UITestsProject.Configuration
             DriverConfigurations.BrowserName = GetConfigurationValueWithEnvVariables("Browser",ResourcesFolder, AppSettingsJson);
             DriverConfigurations.PageLoadTimeOut = GetValueFromJsonFile<int>("PageLoadTimeOut", ResourcesFolder, AppSettingsJson);
             DriverConfigurations.ChromeOptions = GetValueFromJsonFile<IEnumerable<string>>("ChromeOptions", ResourcesFolder, AppSettingsJson);
+            DriverConfigurations.WindowWidth = GetValueFromJsonFile<int>("WindowWidth", ResourcesFolder, AppSettingsJson);
+            DriverConfigurations.WindowHeight = GetValueFromJsonFile<int>("WindowHeight", ResourcesFolder, AppSettingsJson);
             TimeOutConfigurations.DefaultRetryForTimeout = GetValueFromJsonFile<double>("DefaultConditionWaitTime", ResourcesFolder, TimeoutsJson);
             TimeOutConfigurations.DefaultIntervalTimeout = GetValueFromJsonFile<double>("DefaultInterval", ResourcesFolder, TimeoutsJson);
             TimeOutConfigurations.SearchForElementTimeout = GetValueFromJsonFile<double>("DefaultTimeoutForFindingElement", ResourcesFolder, TimeoutsJson);
