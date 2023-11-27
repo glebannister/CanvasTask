@@ -1,11 +1,8 @@
-﻿using Framework.Enums;
-using Framework.Utils;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
 using Framework.Logging;
-using System.ComponentModel;
 using Framework.Waits;
 using Framework.Constants;
+using Framework.Factories;
 
 namespace Framework.Application
 {
@@ -24,22 +21,7 @@ namespace Framework.Application
         {
             FrameworkLogger.Info("Getting instance of IWebDriver...");
             if (_driver != null) return _driver;
-            //ICapabilities capabilities;
-            switch (FrameworkEnumUtil.ConvertStringToEnum<DriversEnum>(DriverConfigurations.BrowserName)) 
-            {
-                case DriversEnum.Chrome:
-                    ChromeDriverService chromeDriverService = ChromeDriverService.CreateDefaultService();
-                    chromeDriverService.SuppressInitialDiagnosticInformation = true;
-                    chromeDriverService.EnableVerboseLogging = false;
-                    _driver = new ChromeDriver(DefineChromeOptions());
-                    break;
-                case DriversEnum.Firefox:
-                    throw new NotImplementedException($"Driver for {DriversEnum.Firefox} hasn't any implementation yet");
-                case DriversEnum.Edge:
-                    throw new NotImplementedException($"Driver for {DriversEnum.Edge} hasn't any implementation yet");
-                default: throw new InvalidEnumArgumentException("Wrong driver name");
-            }
-            //_driver = new RemoteWebDriver(new Uri("http://locallhost:4444"), capabilities);
+            _driver = new GeneralDriverFactory().CreateDriver();
             ManageDriverDefaultSettings(_driver);
             ExplicitWait = new ExplicitWait(_driver);
             return _driver;
@@ -63,20 +45,6 @@ namespace Framework.Application
                 driver.Manage().Window.Size = new System.Drawing.Size(DriverConfigurations.WindowWidth, DriverConfigurations.WindowHeight);
             } else driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(DriverConfigurations.PageLoadTimeOut));
-        }
-
-        private ChromeOptions DefineChromeOptions() 
-        {
-            FrameworkLogger.Info("Define Chrome oprions");
-            ChromeOptions options = new ChromeOptions();
-            options.AddArguments(DriverConfigurations.ChromeOptions);
-            //options.AddAdditionalOption("remoteAddress", "localhost");
-            //options.AddAdditionalOption("remotePort", 4444);
-            DriverConfigurations.ChromeOptions
-                .ToList()
-                .ForEach(option => FrameworkLogger.Info($"Chrome {option} has been added"));
-            return options;
-            //return options.ToCapabilities();
         }
     }
 }

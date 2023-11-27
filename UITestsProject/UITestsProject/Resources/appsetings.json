@@ -1,4 +1,5 @@
 {
+  "ExecutionPlatform": "Local",
   "Browser": "Chrome",
   "PageLoadTimeOut": "120",
   "ChromeOptions": [ "--incognito" ],

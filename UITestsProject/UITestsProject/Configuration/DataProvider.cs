@@ -17,6 +17,7 @@ namespace UITestsProject.Configuration
 
         public void SetFrameworkSettingsData() 
         {
+            DriverConfigurations.ExecutionPlatform = GetConfigurationValueWithEnvVariables("ExecutionPlatform", ResourcesFolder, AppSettingsJson);
             DriverConfigurations.BrowserName = GetConfigurationValueWithEnvVariables("Browser",ResourcesFolder, AppSettingsJson);
             DriverConfigurations.PageLoadTimeOut = GetValueFromJsonFile<int>("PageLoadTimeOut", ResourcesFolder, AppSettingsJson);
             DriverConfigurations.ChromeOptions = GetValueFromJsonFile<IEnumerable<string>>("ChromeOptions", ResourcesFolder, AppSettingsJson);
