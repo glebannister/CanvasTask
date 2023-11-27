@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace Framework.Application
 {
-    public static class ApplicationManager
+    public class ApplicationManager
     {
         public static IWebDriver GetWebDriver()
         {

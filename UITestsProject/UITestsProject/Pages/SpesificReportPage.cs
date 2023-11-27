@@ -1,5 +1,4 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Elements;
 using Framework.Page;
 using Framework.Waits;
@@ -7,7 +6,7 @@ using OpenQA.Selenium;
 
 namespace UITestsProject.Pages
 {
-    internal class SpesificReportPage : BaseWebPage
+    public class SpesificReportPage : BaseWebPage
     {
         private WebButton RunReportWebButton => new WebButton(By.XPath("//span[text()='Run Report']"), "Run report web button");
         private WebTable RunReportResultTable => new WebTable(By.XPath("//tr[@class='listViewRow oddListRowS1']"), "Run report result table");

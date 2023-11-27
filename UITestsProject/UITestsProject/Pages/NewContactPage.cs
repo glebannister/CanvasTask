@@ -1,5 +1,4 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Elements;
 using Framework.Page;
 using Framework.Waits;
@@ -7,7 +6,7 @@ using OpenQA.Selenium;
 
 namespace UITestsProject.Pages
 {
-    internal class NewContactPage : BaseWebPage
+    public class NewContactPage : BaseWebPage
     {
         private WebLabel FirstLastNameLabel => new WebLabel(By.Id("_form_header"), "FirstLast name label");
         private WebLabel BusinessRoleLabel => new WebLabel(

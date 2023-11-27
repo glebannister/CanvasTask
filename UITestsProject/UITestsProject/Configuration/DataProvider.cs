@@ -1,4 +1,5 @@
-﻿using Framework.Constants;
+﻿using Framework.Configurations;
+using Framework.Constants;
 using Framework.Helpers;
 using Framework.Utils;
 using Newtonsoft.Json.Linq;
@@ -12,6 +13,7 @@ namespace UITestsProject.Configuration
         private const string ResourcesFolder = "Resources";
         private const string AppSettingsJson = "appsetings.json";
         private const string TimeoutsJson = "timeouts.json";
+        private const string ReportingJson = "reporting.json";
 
         public void SetFrameworkSettingsData() 
         {
@@ -23,6 +25,7 @@ namespace UITestsProject.Configuration
             TimeOutConfigurations.DefaultRetryForTimeout = GetValueFromJsonFile<double>("DefaultConditionWaitTime", ResourcesFolder, TimeoutsJson);
             TimeOutConfigurations.DefaultIntervalTimeout = GetValueFromJsonFile<double>("DefaultInterval", ResourcesFolder, TimeoutsJson);
             TimeOutConfigurations.SearchForElementTimeout = GetValueFromJsonFile<double>("DefaultTimeoutForFindingElement", ResourcesFolder, TimeoutsJson);
+            ReportingConfiguration.RunAllureReport = GetValueFromJsonFile<bool>("RunAllureReport", ResourcesFolder, ReportingJson);
         }
 
         public string GetConfigurationValueWithEnvVariables(string key, string resourceFolder, string fileName)

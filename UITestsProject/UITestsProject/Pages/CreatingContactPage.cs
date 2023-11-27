@@ -1,5 +1,4 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Elements;
 using Framework.Page;
 using Framework.Waits;
@@ -8,7 +7,7 @@ using UITestsProject.Extensions;
 
 namespace UITestsProject.Pages
 {
-    internal class CreatingContactPage : BaseWebPage
+    public class CreatingContactPage : BaseWebPage
     {
         private WebTextField FirstNameTextField => new WebTextField(By.XPath("//input[@name='first_name']"), "First name text field");
         private WebTextField LastNameTextField => new WebTextField(By.XPath("//input[@name='last_name']"), "Last name text field");

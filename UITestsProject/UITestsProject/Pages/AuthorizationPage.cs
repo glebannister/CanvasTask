@@ -6,7 +6,7 @@ using UITestsProject.Models;
 
 namespace UITestsProject.Pages
 {
-    internal class AuthorizationPage : BaseWebPage, IPassAuthorization
+    public class AuthorizationPage : BaseWebPage, IPassAuthorization
     {
         private WebTextField UserNameTextField => new WebTextField(By.Id("login_user"), "UserName text field");
         private WebTextField PasswordTextField => new WebTextField(By.Id("login_pass"), "Password text field");

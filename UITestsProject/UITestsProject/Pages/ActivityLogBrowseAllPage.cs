@@ -8,7 +8,7 @@ using OpenQA.Selenium;
 
 namespace UITestsProject.Pages
 {
-    internal class ActivityLogBrowseAllPage : BaseWebPage
+    public class ActivityLogBrowseAllPage : BaseWebPage
     {
         private WebButton ActionsButton => new WebButton(By.XPath("//div[@class='inline-elt']//span"), "Actions button");
         private WebButton DeleteButton => new WebButton(By.XPath("//div[text()='Delete']"), "Delete button");

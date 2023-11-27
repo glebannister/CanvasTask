@@ -1,5 +1,4 @@
-﻿using Framework.Application;
-using Framework.Constants;
+﻿using Framework.Constants;
 using Framework.Elements;
 using Framework.Enums;
 using Framework.Page;
@@ -9,7 +8,7 @@ using UITestsProject.Extensions;
 
 namespace UITestsProject.Pages
 {
-    internal class HomeAndActionsPage : BaseWebPage
+    public class HomeAndActionsPage : BaseWebPage
     {
         private WebButton SalesAndMarketingButton => new WebButton(By.XPath("//a[contains(@class, 'mouseonly') and contains(@class, 'menu-tab') and contains(@class, 'sales-marketing')]"), "Sales&Marketing button");
         private WebButton ReportsAndSettingsButton => new WebButton(By.XPath("//a[contains(@class, 'mouseonly') and contains(@class, 'menu-tab') and contains(@class, 'reports-settings')]"), "Report$Settings button");

@@ -25,8 +25,8 @@ namespace Framework.Elements
             this.Locator = Locator;
             ElementName = elementName;
             State = state;
-            Actions = new Actions(Browser.GetInstance().GetDriver());
-            ExplicitWait = new ExplicitWait(Browser.GetInstance().GetDriver());
+            Actions = new Actions(ApplicationManager.GetWebDriver());
+            ExplicitWait = new ExplicitWait(ApplicationManager.GetWebDriver());
         }
 
         public bool IsElementExists()
