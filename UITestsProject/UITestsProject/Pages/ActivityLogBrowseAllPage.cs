@@ -1,6 +1,6 @@
 ﻿using Framework.Application;
 using Framework.Constants;
-using Framework.Elements;
+using Framework.Elements.Classes;
 using Framework.Enums;
 using Framework.Page;
 using Framework.Waits;

@@ -1,17 +1,18 @@
-﻿using Framework.Enums;
+﻿using Framework.Elements.Interfaces;
+using Framework.Enums;
 using Framework.Logging;
 using OpenQA.Selenium;
 
-namespace Framework.Elements
+namespace Framework.Elements.Classes
 {
-    public class WebTextField : BaseWebUiElement
+    public class WebTextField : BaseWebUiElement, IWebTextField
     {
-        public WebTextField(By locator, string elementName, ElementState elementState = ElementState.Displayed) 
+        public WebTextField(By locator, string elementName, ElementState elementState = ElementState.Displayed)
             : base(locator, elementName, elementState)
         {
         }
 
-        public void ClearText() 
+        public void ClearText()
         {
             FrameworkLogger.Info($"Getting text in label by Locator[{Locator}] and Name{ElementName}");
             GetWebElement().Clear();

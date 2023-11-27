@@ -1,5 +1,6 @@
 ﻿using Framework.Application;
 using Framework.Constants;
+using Framework.Elements.Interfaces;
 using Framework.Enums;
 using Framework.Logging;
 using Framework.Waits;
@@ -7,9 +8,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
 
-namespace Framework.Elements
+namespace Framework.Elements.Classes
 {
-    public abstract class BaseWebUiElement
+    public abstract class BaseWebUiElement : IBaseWebElement
     {
         public string ElementName;
 
@@ -20,7 +21,7 @@ namespace Framework.Elements
         protected Actions Actions { get; private set; }
         protected ExplicitWait ExplicitWait { get; private set; }
 
-        protected BaseWebUiElement(By Locator, string elementName, ElementState state) 
+        protected BaseWebUiElement(By Locator, string elementName, ElementState state)
         {
             this.Locator = Locator;
             ElementName = elementName;
@@ -32,11 +33,12 @@ namespace Framework.Elements
         public bool IsElementExists()
         {
             FrameworkLogger.Info($"Checking if web element by Locator[{Locator}] and Name {ElementName} is Exists");
-            try 
+            try
             {
                 WaitForElements(Locator, ElementState.ExistsInAnyState);
                 return true;
-            } catch (NoSuchElementException) 
+            }
+            catch (NoSuchElementException)
             {
                 return false;
             }
@@ -54,13 +56,13 @@ namespace Framework.Elements
             return GetWebElement().Enabled;
         }
 
-        public void Click() 
+        public void Click()
         {
             FrameworkLogger.Info($"Clicking on web element by Locator[{Locator}] and Name{ElementName}");
             GetWebElement().Click();
         }
 
-        public string GetText() 
+        public string GetText()
         {
             FrameworkLogger.Info($"Getting text from web element by Locator[{Locator}] and Name{ElementName}");
             return GetWebElement().Text;
@@ -77,7 +79,7 @@ namespace Framework.Elements
             return GetWebElements().Count();
         }
 
-        public void Focus() 
+        public void Focus()
         {
             FrameworkLogger.Info($"Focusing on web element by Locator[{Locator}] and Name{ElementName}");
             Actions.MoveToElement(GetWebElement()).Build().Perform();
@@ -95,10 +97,10 @@ namespace Framework.Elements
             return WaitForElements(Locator, State);
         }
 
-        public ReadOnlyCollection<IWebElement> ReFindWebElements(ElementState state, bool setNewState = true) 
+        public ReadOnlyCollection<IWebElement> ReFindWebElements(ElementState state, bool setNewState = true)
         {
             FrameworkLogger.Info($"Refinding web elements by Locator[{Locator}] and Name {ElementName}");
-            if ( setNewState ) {State = state;}
+            if (setNewState) { State = state; }
             return WaitForElements(Locator, state);
         }
 
@@ -109,13 +111,13 @@ namespace Framework.Elements
             var resultElements = new List<IWebElement>();
             try
             {
-                    ExplicitWait
-                    .WaitFor(driver =>
-                    {
-                        foundElements = driver.FindElements(Locator).ToList();
-                        resultElements = foundElements.Where(elementStateCondition).ToList();
-                        return resultElements.Any();
-                    }, TimeSpan.FromSeconds(TimeOutConfigurations.SearchForElementTimeout));
+                ExplicitWait
+                .WaitFor(driver =>
+                {
+                    foundElements = driver.FindElements(Locator).ToList();
+                    resultElements = foundElements.Where(elementStateCondition).ToList();
+                    return resultElements.Any();
+                }, TimeSpan.FromSeconds(TimeOutConfigurations.SearchForElementTimeout));
             }
             catch (WebDriverTimeoutException)
             {
@@ -145,7 +147,7 @@ namespace Framework.Elements
         }
 
         private void HandleWebdriverTimeoutException(ElementState state, List<IWebElement> foundElements)
-        {  
+        {
             var message = foundElements.Any()
                 ? $"Elements were found by Locator '{Locator}'. But not in state '{state}'"
                 : $"No elements with Locator '{Locator}' found in {state} state";

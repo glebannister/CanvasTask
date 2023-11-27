@@ -1,19 +1,20 @@
 ﻿using Framework.Constants;
+using Framework.Elements.Interfaces;
 using Framework.Enums;
 using Framework.Logging;
 using Framework.Waits;
 using OpenQA.Selenium;
 
-namespace Framework.Elements
+namespace Framework.Elements.Classes
 {
-    public class WebLabel : BaseWebUiElement
+    public class WebLabel : BaseWebUiElement, IWebLabel
     {
-        public WebLabel(By locator, string elementName, ElementState elementState = ElementState.Displayed) 
+        public WebLabel(By locator, string elementName, ElementState elementState = ElementState.Displayed)
             : base(locator, elementName, elementState)
         {
         }
 
-        public List<string> GetTextsFromLabels(ElementState elementState = ElementState.Displayed) 
+        public List<string> GetTextsFromLabels(ElementState elementState = ElementState.Displayed)
         {
             FrameworkLogger.Info($"Getting texts from label by Locator[{Locator}] and Name {ElementName}");
             var listOfTexts = new List<string>();

@@ -1,5 +1,5 @@
 ﻿using Framework.Constants;
-using Framework.Elements;
+using Framework.Elements.Classes;
 using Framework.Page;
 using Framework.Waits;
 using OpenQA.Selenium;

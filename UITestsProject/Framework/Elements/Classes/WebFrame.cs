@@ -1,10 +1,11 @@
 ﻿using Framework.Application;
+using Framework.Elements.Interfaces;
 using Framework.Enums;
 using OpenQA.Selenium;
 
-namespace Framework.Elements
+namespace Framework.Elements.Classes
 {
-    public class WebFrame : BaseWebUiElement
+    public class WebFrame : BaseWebUiElement, IWebFrame
     {
         public WebFrame(By Locator, string elementName, ElementState state = ElementState.Displayed)
             : base(Locator, elementName, state)
@@ -23,16 +24,16 @@ namespace Framework.Elements
             }
         }
 
-        public T DoInFrame<T>(Func<T> func) 
+        public T DoInFrame<T>(Func<T> func)
         {
             try
             {
                 ApplicationManager.GetWebDriver().SwitchTo().Frame(GetWebElement());
                 return func();
             }
-            catch 
+            catch
             {
-                return default(T);
+                return default;
             }
             finally
             {
@@ -40,7 +41,7 @@ namespace Framework.Elements
             }
         }
 
-        public void DoInFrameIfPresent(Action action) 
+        public void DoInFrameIfPresent(Action action)
         {
             try
             {
@@ -50,7 +51,7 @@ namespace Framework.Elements
                     action.Invoke();
                 }
             }
-            finally 
+            finally
             {
                 ApplicationManager.GetWebDriver().SwitchTo().DefaultContent();
             }
@@ -65,11 +66,11 @@ namespace Framework.Elements
                     ApplicationManager.GetWebDriver().SwitchTo().Frame(GetWebElement());
                     return func();
                 }
-                else return default(T);
+                else return default;
             }
             catch
             {
-                return default(T);
+                return default;
             }
             finally
             {

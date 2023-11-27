@@ -1,20 +1,21 @@
 ﻿using Framework.Application;
 using Framework.Constants;
+using Framework.Elements.Interfaces;
 using Framework.Enums;
 using Framework.Logging;
 using Framework.Waits;
 using OpenQA.Selenium;
 
-namespace Framework.Elements
+namespace Framework.Elements.Classes
 {
-    public class WebCheckBox : BaseWebUiElement
+    public class WebCheckBox : BaseWebUiElement, IWebCheckBox
     {
-        public WebCheckBox(By locator, string elementName, ElementState elementState = ElementState.Displayed) 
+        public WebCheckBox(By locator, string elementName, ElementState elementState = ElementState.Displayed)
             : base(locator, elementName, elementState)
         {
         }
 
-        public void SetCheckBoxesValues(int amountOfItems, bool value) 
+        public void SetCheckBoxesValues(int amountOfItems, bool value)
         {
             FrameworkLogger.Info($"Set check boxes values to check box by Locator[{Locator}] and Name{ElementName}");
             GetWebElements()
@@ -23,7 +24,7 @@ namespace Framework.Elements
                 .ForEach(item => SetCheckBoxValue(item, value));
         }
 
-        private void SetCheckBoxValue(IWebElement checkBox, bool value) 
+        private void SetCheckBoxValue(IWebElement checkBox, bool value)
         {
             ExplicitWait.WaitForCondition(() =>
             {

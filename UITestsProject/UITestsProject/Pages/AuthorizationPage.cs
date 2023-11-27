@@ -1,4 +1,4 @@
-﻿using Framework.Elements;
+﻿using Framework.Elements.Classes;
 using Framework.Page;
 using OpenQA.Selenium;
 using UITestsProject.Interfaces;
